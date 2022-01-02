@@ -1,5 +1,7 @@
 # shops_frontend_web
 
+> 技术栈：vue2 + vue-cli + vue-router + vuex + axios + normalize.css + nprogress + element-ui
+
 ## Project setup
 ```
 yarn install
