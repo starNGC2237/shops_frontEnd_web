@@ -1,0 +1,23 @@
+/*
+ * @Author: zhilutianji
+ * @Date: 2022-01-02 18:52:41
+ * @LastEditors: zhilutianji
+ * @LastEditTime: 2022-01-02 18:52:42
+ * @Description: file content
+ * @FilePath: \shops_frontend_web\jsconfig.js
+ */
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+            "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        }
+    },
+
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
