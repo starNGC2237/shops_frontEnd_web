@@ -2,7 +2,7 @@
  * @Author: zhilutianji
  * @Date: 2022-01-02 19:34:12
  * @LastEditors: zhilutianji
- * @LastEditTime: 2022-01-02 22:43:08
+ * @LastEditTime: 2022-01-02 23:07:17
  * @Description: file content
  * @FilePath: \shops_frontend_web\src\components\Footer\index.vue
 -->
@@ -53,6 +53,8 @@ export default {
   font-size: 14px;
   color: #c0c0c0;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 .bottom_content>div ul .bottom_content_logo{
   font-size: 24px;
