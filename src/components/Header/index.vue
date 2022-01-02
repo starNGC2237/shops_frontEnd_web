@@ -2,7 +2,7 @@
  * @Author: zhilutianji
  * @Date: 2022-01-02 19:34:04
  * @LastEditors: zhilutianji
- * @LastEditTime: 2022-01-02 21:05:36
+ * @LastEditTime: 2022-01-02 22:43:56
  * @Description: file content
  * @FilePath: \shops_frontend_web\src\components\Header\index.vue
 -->
@@ -16,17 +16,17 @@
         <span><router-link to="/register">注册</router-link></span>
       </div>
       <div class="functions">
-        <span><a href="">我的订单</a></span>
+        <span><a href="#">我的订单</a></span>
         <span class="welcome_split">|</span>
-        <span><a href="">我的购物车</a></span>
+        <span><a href="#">我的购物车</a></span>
         <span class="welcome_split">|</span>
-        <span><a href="">我的某商城</a></span>
+        <span><a href="#">我的某商城</a></span>
         <span class="welcome_split">|</span>
-        <span><a href="">某商城会员</a></span>
+        <span><a href="#">某商城会员</a></span>
         <span class="welcome_split">|</span>
-        <span><a href="">关注某商城</a></span>
+        <span><a href="#">关注某商城</a></span>
         <span class="welcome_split">|</span>
-        <span><a href="">商家后台</a></span>
+        <span><a href="#">商家后台</a></span>
       </div>
     </div>
   </div>
@@ -46,6 +46,7 @@ export default {
   line-height: 40px;
   display: flex;
   justify-content: center;
+  font-size: 1rem;
 }
 .container {
   width: 1226px;

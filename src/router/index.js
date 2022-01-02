@@ -2,7 +2,7 @@
  * @Author: zhilutianji
  * @Date: 2022-01-02 20:17:15
  * @LastEditors: zhilutianji
- * @LastEditTime: 2022-01-02 20:17:16
+ * @LastEditTime: 2022-01-02 21:43:18
  * @Description: file content
  * @FilePath: \shops_frontend_web\src\router\index.js
  */
@@ -40,7 +40,7 @@ export default new VueRouter({
         },
         {
             name:'search',
-            path:"/search/:keyWord",
+            path:"/search",
             component:Search,
             meta:{show:true}
         },
