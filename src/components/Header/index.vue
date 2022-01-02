@@ -2,7 +2,7 @@
  * @Author: zhilutianji
  * @Date: 2022-01-02 19:34:04
  * @LastEditors: zhilutianji
- * @LastEditTime: 2022-01-02 22:43:56
+ * @LastEditTime: 2022-01-02 23:17:44
  * @Description: file content
  * @FilePath: \shops_frontend_web\src\components\Header\index.vue
 -->
@@ -10,7 +10,7 @@
   <div class="header">
     <div class="container">
       <div class="welcome">
-        <span class="welcome_word">某商城欢迎您！</span>
+        <span class="welcome_word"><router-link to="/home">某商城欢迎您！</router-link></span>
         <span><router-link to="/login">登录</router-link></span>
         <span class="welcome_split">|</span>
         <span><router-link to="/register">注册</router-link></span>
@@ -62,7 +62,13 @@ export default {
 }
 .container > .welcome > .welcome_word {
   color: #b0b0b0;
-  margin-right: 1rem;
+  margin-right: 2rem;
+}
+.container > .welcome > .welcome_word>a{
+  display: inline-block;
+  line-height: 40px;
+  height: 40px;
+  color: #b0b0b0;
 }
 .welcome_split {
   color: #b0b0b0;
