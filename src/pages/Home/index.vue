@@ -19,6 +19,7 @@
 import Footer from '@/components/Footer'
 import LongBanner from '@/pages/Home/LongBanner/index.vue'
 import BrickBox from '@/pages/Home/BrickBox/index.vue'
+
 export default {
     name: 'Home',
     components: {

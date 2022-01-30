@@ -7,7 +7,7 @@
  * @FilePath: \shops_frontend_web\src\App.vue
 -->
 <template>
-    <div id="app">
+    <div id='app'>
         <Header></Header>
         <router-view></router-view>
     </div>

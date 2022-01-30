@@ -7,26 +7,26 @@
  * @FilePath: \shops_frontend_web\src\components\Footer\index.vue
 -->
 <template>
-    <div class="record_bottom">
-        <div class="bottom_content">
+    <div class='record_bottom'>
+        <div class='bottom_content'>
             <div>
                 <ul>
-                    <li class="bottom_content_logo">
-                        <a href="https://tostar.site">某商城</a>
+                    <li class='bottom_content_logo'>
+                        <a href='https://tostar.site'>某商城</a>
                     </li>
                     <li>
                         © 2020-2021
-                        <a href="">shops.starlibrary.online</a> 版权所有
+                        <a href=''>shops.starlibrary.online</a> 版权所有
                     </li>
                     <li>本网站仅供学习使用</li>
                     <li>
-                        <a href="http://beian.miit.gov.cn"
-                            >ICP证：津ICP备20000024号</a
+                        <a href='http://beian.miit.gov.cn'
+                        >ICP证：津ICP备20000024号</a
                         >
                     </li>
                     <li>
-                        <a href="http://www.beian.gov.cn/portal/index.do">
-                            <img src="@/assets/beian.png" alt="" />
+                        <a href='http://www.beian.gov.cn/portal/index.do'>
+                            <img src='@/assets/beian.png' alt='' />
                             苏公网安备 32021402001231号
                         </a>
                     </li>
@@ -48,18 +48,21 @@ export default {
     background-color: #333;
     width: 100%;
 }
+
 .bottom_content {
     display: flex;
     width: 1226px;
     height: 300px;
     margin: 0 auto;
 }
+
 .bottom_content > div {
     width: 50%;
     height: 100%;
     display: flex;
     align-items: center;
 }
+
 .bottom_content > div ul {
     font-size: 14px;
     color: #c0c0c0;
@@ -67,13 +70,16 @@ export default {
     margin: 0;
     padding: 0;
 }
+
 .bottom_content > div ul .bottom_content_logo {
     font-size: 24px;
     margin-bottom: 20px;
 }
+
 .bottom_content > div ul li {
     margin: 15px 0;
 }
+
 .bottom_content > div ul li a {
     color: #c0c0c0;
     text-decoration: none;

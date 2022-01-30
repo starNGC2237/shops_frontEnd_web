@@ -8,7 +8,7 @@
  */
 import Vue from 'vue'
 import App from '@/App.vue'
-//引入路由
+// 引入路由
 import router from '@/router'
 // 引入css重置
 import 'normalize.css/normalize.css'
@@ -16,6 +16,6 @@ import 'normalize.css/normalize.css'
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App),
-  router
+    render: h => h(App),
+    router
 }).$mount('#app')

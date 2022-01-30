@@ -7,13 +7,13 @@
  * @FilePath: \shops_frontend_web\src\pages\Home\BrickBox\index.vue
 -->
 <template>
-    <div class="brick_box">
-        <div class="container">
-            <div class="container-top">
+    <div class='brick_box'>
+        <div class='container'>
+            <div class='container-top'>
                 <h2>数据</h2>
                 <div>查看更多 ></div>
             </div>
-            <div class="container-content">sdasda sdasdads</div>
+            <div class='container-content'>sdasda sdasdads</div>
         </div>
     </div>
 </template>
@@ -31,16 +31,19 @@ export default {
     justify-content: center;
     margin: 1.5rem 0;
 }
+
 .brick_box > .container {
     display: flex;
     flex-direction: column;
 }
+
 .brick_box > .container > .container-top {
     width: 1226px;
     display: flex;
     justify-content: space-between;
     text-align: center;
 }
+
 .brick_box > .container > .container-top > h2 {
     margin: 0;
     font-size: 22px;
@@ -48,6 +51,7 @@ export default {
     color: #333;
     font-weight: 200;
 }
+
 .brick_box > .container > .container-top > div {
     display: flex;
     align-items: center;

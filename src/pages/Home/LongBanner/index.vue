@@ -7,12 +7,12 @@
  * @FilePath: \shops_frontend_web\src\pages\Home\LongBanner\index.vue
 -->
 <template>
-    <div class="long_bar">
-        <div class="container">
-            <router-link to="/search">
+    <div class='long_bar'>
+        <div class='container'>
+            <router-link to='/search'>
                 <img
-                    src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/88e35cffc82cd98cd53172460067af17.jpg?thumb=1&w=1839&h=180&f=webp&q=90"
-                    alt=""
+                    src='https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/88e35cffc82cd98cd53172460067af17.jpg?thumb=1&w=1839&h=180&f=webp&q=90'
+                    alt=''
                 />
             </router-link>
         </div>
@@ -33,10 +33,12 @@ export default {
     justify-content: center;
     margin: 1.5rem 0;
 }
+
 .long_bar > .container {
     width: 1226px;
     height: 120px;
 }
+
 .long_bar > .container > a > img {
     width: 1226px;
     height: 120px;
