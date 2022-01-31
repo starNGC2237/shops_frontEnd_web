@@ -28,4 +28,7 @@ export default {
 html {
     font-size: 12px;
 }
+#app{
+    min-width: 1226px;
+}
 </style>
