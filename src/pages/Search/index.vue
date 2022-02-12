@@ -8,21 +8,20 @@
 -->
 <template>
     <div>
+        <TypeNav></TypeNav>
         <h1>搜索</h1>
-        <Footer></Footer>
     </div>
 </template>
 
 <script>
-import Footer from '@/components/Footer'
-
+import TypeNav from '@/components/TypeNav'
 export default {
     name: 'Search',
     components: {
-        Footer
+        TypeNav
     }
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 </style>

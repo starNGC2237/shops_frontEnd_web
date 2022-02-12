@@ -10,16 +10,21 @@
     <div id='app'>
         <Header></Header>
         <router-view></router-view>
+        <Footer v-show="$route.meta.show"></Footer>
     </div>
 </template>
 
 <script>
 import Header from '@/components/Header'
-
+import Footer from '@/components/Footer'
 export default {
     name: 'App',
     components: {
-        Header
+        Header,
+        Footer
+    },
+    mounted() {
+        this.$store.dispatch('categoryList')
     }
 }
 </script>
@@ -27,8 +32,8 @@ export default {
 <style>
 html {
     font-size: 12px;
-}
-#app{
+    background-color: #F5F5F5;
     min-width: 1226px;
+    line-height: 1.5 !important;
 }
 </style>

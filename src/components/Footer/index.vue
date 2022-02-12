@@ -15,17 +15,17 @@
                         <a href='https://tostar.site'>某商城</a>
                     </li>
                     <li>
-                        © 2020-2021
-                        <a href=''>shops.starlibrary.online</a> 版权所有
+                        © 2020-至今
+                        <a href='https://shops.starlibrary.online'>shops.starlibrary.online</a> 版权所有
                     </li>
                     <li>本网站仅供学习使用</li>
                     <li>
-                        <a href='http://beian.miit.gov.cn'
+                        <a href='https://beian.miit.gov.cn'
                         >ICP证：津ICP备20000024号</a
                         >
                     </li>
                     <li>
-                        <a href='http://www.beian.gov.cn/portal/index.do'>
+                        <a href='https://www.beian.gov.cn/portal/index.do'>
                             <img src='@/assets/beian.png' alt='' />
                             苏公网安备 32021402001231号
                         </a>
@@ -42,7 +42,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .record_bottom {
     display: flex;
     background-color: #333;
@@ -54,34 +54,41 @@ export default {
     width: 1226px;
     height: 300px;
     margin: 0 auto;
+    > div {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        ul {
+            font-size: 14px;
+            color: #c0c0c0;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            .bottom_content_logo {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+            li {
+                margin: 15px 0;
+                a {
+                    color: #c0c0c0;
+                    text-decoration: none;
+                }
+            }
+            & li:last-child{
+                display: flex;
+                align-items: center;
+                >a{
+                    display: flex;
+                    align-items: center;
+                    >img{
+                        margin-right: 0.5rem;
+                    }
+                }
+            }
+        }
+    }
 }
 
-.bottom_content > div {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.bottom_content > div ul {
-    font-size: 14px;
-    color: #c0c0c0;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.bottom_content > div ul .bottom_content_logo {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.bottom_content > div ul li {
-    margin: 15px 0;
-}
-
-.bottom_content > div ul li a {
-    color: #c0c0c0;
-    text-decoration: none;
-}
 </style>

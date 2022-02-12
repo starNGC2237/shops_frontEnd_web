@@ -25,22 +25,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .long_bar {
     width: 100%;
     height: 120px;
     display: flex;
     justify-content: center;
     margin: 1.5rem 0;
-}
-
-.long_bar > .container {
-    width: 1226px;
-    height: 120px;
-}
-
-.long_bar > .container > a > img {
-    width: 1226px;
-    height: 120px;
+    >.container {
+        width: 1226px;
+        height: 120px;
+        >a{
+            >img{
+                width: 1226px;
+                height: 120px;
+            }
+        }
+    }
 }
 </style>

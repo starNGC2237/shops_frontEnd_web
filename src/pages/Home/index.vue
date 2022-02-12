@@ -7,27 +7,34 @@
  * @FilePath: \shops_frontend_web\src\pages\Home\index.vue
 -->
 <template>
-    <div>
-        <h1>Home</h1>
+    <div class='home'>
+        <TypeNav></TypeNav>
+        <SwiperWrapper></SwiperWrapper>
         <LongBanner></LongBanner>
         <BrickBox></BrickBox>
-        <Footer></Footer>
     </div>
 </template>
 
 <script>
-import Footer from '@/components/Footer'
 import LongBanner from '@/pages/Home/LongBanner/index.vue'
 import BrickBox from '@/pages/Home/BrickBox/index.vue'
-
+import TypeNav from '@/components/TypeNav'
+import SwiperWrapper from '@/pages/Home/SwiperWrapper/index.vue'
 export default {
     name: 'Home',
     components: {
-        Footer,
         LongBanner,
-        BrickBox
+        BrickBox,
+        TypeNav,
+        SwiperWrapper
     }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+</style>

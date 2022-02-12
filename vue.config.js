@@ -19,12 +19,26 @@ module.exports = {
             // 会把请求路径中的/api换为后面的代理服务器
             '/api': {
                 // 提供数据的服务器地址
+                target: 'http://39.98.123.211'
+                // 会在后面加/api
+                // 除非
+                // 重写去掉
+                // pathRewrite:{'^/api':''},
+
+            }
+            // todo 更改api
+            /*
+            * // 会把请求路径中的/api换为后面的代理服务器
+            '/api': {
+                // 提供数据的服务器地址
                 target: 'https://shops.starlibrary.online'
                 // 会在后面加/api
                 // 除非
                 // 重写去掉
                 // pathRewrite:{'^/api':''},
             }
+            * */
+
         }
     }
 }

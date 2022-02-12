@@ -29,9 +29,11 @@ import Home from '@/pages/Home'
 import Search from '@/pages/Search'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
+import NotFound from '@/components/NotFound'
 
 // 配置路由
 export default new VueRouter({
+    mode: 'history',
     // 配置路由
     routes: [
         {
@@ -55,10 +57,19 @@ export default new VueRouter({
             component: Register,
             meta: { show: false }
         },
+        {
+            path: '/404',
+            component: NotFound,
+            meta: { show: false }
+        },
         // 重定向
         {
-            path: '*',
+            path: '/',
             redirect: '/home'
+        },
+        {
+            path: '*',
+            redirect: '/404'
         }
     ]
 })

@@ -28,7 +28,7 @@
                 <span class='welcome_split'>|</span>
                 <span><a href='#'>关注某商城</a></span>
                 <span class='welcome_split'>|</span>
-                <span><a href='#'>商家后台</a></span>
+                <span><a target='_blank' href='https://shopsadmin.starlibrary.online'>商家后台</a></span>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .header {
     width: 100%;
     background-color: #333;
@@ -57,73 +57,61 @@ export default {
     line-height: 40px;
     display: flex;
     justify-content: space-between;
+    > .welcome {
+        width: fit-content;
+        height: 40px;
+        line-height: 40px;
+        > .welcome_word {
+            color: #b0b0b0;
+            margin-right: 2rem;
+            > a {
+                display: inline-block;
+                line-height: 40px;
+                height: 40px;
+                color: #b0b0b0;
+            }
+        }
+        >span {
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            color: #b0b0b0;
+            > a {
+                display: inline-block;
+                height: 40px;
+                text-decoration: none;
+                line-height: 40px;
+                color: #b0b0b0;
+                &:hover {
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+    > .functions {
+        width: fit-content;
+        height: 40px;
+        line-height: 40px;
+        > span {
+            color: #b0b0b0;
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            > a {
+                text-decoration: none;
+                color: #b0b0b0;
+                display: inline-block;
+                height: 40px;
+                line-height: 40px;
+                &:hover{
+                    color: #ffffff;
+                }
+            }
+        }
+    }
 }
-
-.container > .welcome {
-    width: fit-content;
-    height: 40px;
-    line-height: 40px;
-}
-
-.container > .welcome > .welcome_word {
-    color: #b0b0b0;
-    margin-right: 2rem;
-}
-
-.container > .welcome > .welcome_word > a {
-    display: inline-block;
-    line-height: 40px;
-    height: 40px;
-    color: #b0b0b0;
-}
-
 .welcome_split {
     color: #b0b0b0;
     margin: 0 0.3rem;
-}
-
-.container > .welcome > span {
-    display: inline-block;
-    height: 40px;
-    line-height: 40px;
-    color: #b0b0b0;
-}
-
-.container > .welcome > span > a {
-    display: inline-block;
-    height: 40px;
-    text-decoration: none;
-    line-height: 40px;
-    color: #b0b0b0;
-}
-
-.container > .welcome > span > a:hover {
-    color: #ffffff;
-}
-
-/*功能 */
-.container > .functions {
-    width: fit-content;
-    height: 40px;
-    line-height: 40px;
-}
-
-.container > .functions > span {
-    color: #b0b0b0;
-    display: inline-block;
-    height: 40px;
-    line-height: 40px;
-}
-
-.container > .functions > span > a {
-    text-decoration: none;
-    color: #b0b0b0;
-    display: inline-block;
-    height: 40px;
-    line-height: 40px;
-}
-
-.container > .functions > span > a:hover {
-    color: #ffffff;
 }
 </style>

@@ -10,12 +10,25 @@ import Vue from 'vue'
 import App from '@/App.vue'
 // 引入路由
 import router from '@/router'
+// 引入vuex的store
+import store from './store'
 // 引入css重置
 import 'normalize.css/normalize.css'
+// 按需引入element-ui
+import { Card, Button, Col, Row, Result, Image, Icon, Carousel, CarouselItem } from 'element-ui'
 
 Vue.config.productionTip = false
-
+Vue.component(Card.name, Card)
+Vue.component(Button.name, Button)
+Vue.component(Col.name, Col)
+Vue.component(Row.name, Row)
+Vue.component(Result.name, Result)
+Vue.component(Image.name, Image)
+Vue.component(Icon.name, Icon)
+Vue.component(Carousel.name, Carousel)
+Vue.component(CarouselItem.name, CarouselItem)
 new Vue({
     render: h => h(App),
+    store,
     router
 }).$mount('#app')
