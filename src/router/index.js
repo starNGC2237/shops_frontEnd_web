@@ -27,9 +27,11 @@ VueRouter.prototype.push = function(location, resolve, reject) {
 
 import Home from '@/pages/Home'
 import Search from '@/pages/Search'
-import Login from '@/pages/Login'
-import Register from '@/pages/Register'
+import Login from '@/pages/Service/Login'
+import Register from '@/pages/Service/Register'
 import NotFound from '@/components/NotFound'
+import Service from '@/pages/Service'
+import Scan from '@/pages/Service/Scan'
 
 // 配置路由
 export default new VueRouter({
@@ -48,14 +50,23 @@ export default new VueRouter({
             meta: { show: true }
         },
         {
-            path: '/login',
-            component: Login,
-            meta: { show: false }
-        },
-        {
-            path: '/register',
-            component: Register,
-            meta: { show: false }
+            path: '/service',
+            component: Service,
+            meta: { show: false },
+            children: [
+                {
+                    path: 'login',
+                    component: Login
+                },
+                {
+                    path: 'register',
+                    component: Register
+                },
+                {
+                    path: 'scan',
+                    component: Scan
+                }
+            ]
         },
         {
             path: '/404',

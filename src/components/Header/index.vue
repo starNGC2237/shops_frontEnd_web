@@ -13,9 +13,9 @@
                 <span class='welcome_word'
                 ><router-link to='/home'>某商城欢迎您！</router-link></span
                 >
-                <span><router-link to='/login'>登录</router-link></span>
+                <span><router-link to='/service/login'>登录</router-link></span>
                 <span class='welcome_split'>|</span>
-                <span><router-link to='/register'>注册</router-link></span>
+                <span><router-link to='/service/register'>注册</router-link></span>
             </div>
             <div class='functions'>
                 <span><a href='#'>我的订单</a></span>
