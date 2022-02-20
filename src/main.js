@@ -15,7 +15,7 @@ import store from './store'
 // 引入css重置
 import 'normalize.css/normalize.css'
 // 按需引入element-ui
-import { Card, Button, Col, Row, Result, Image, Icon, Form, FormItem, Input, Submenu, MenuItem, Menu } from 'element-ui'
+import { Card, Button, Col, Row, Result, Image, Icon, Form, FormItem, Input, Submenu, MenuItem, Menu, Checkbox } from 'element-ui'
 
 Vue.config.productionTip = false
 Vue.component(Card.name, Card)
@@ -31,6 +31,7 @@ Vue.component(Input.name, Input)
 Vue.component(Submenu.name, Submenu)
 Vue.component(MenuItem.name, MenuItem)
 Vue.component(Menu.name, Menu)
+Vue.component(Checkbox.name, Checkbox)
 new Vue({
     render: h => h(App),
     store,

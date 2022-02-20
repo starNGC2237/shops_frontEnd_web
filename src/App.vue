@@ -35,5 +35,12 @@ html {
     background-color: #F5F5F5;
     min-width: 1226px;
     line-height: 1.5 !important;
+    overflow-y: auto;
+    /*noinspection CssInvalidPropertyValue*/
+    overflow-y: overlay;
+    overflow-x: hidden;
+}
+#app{
+    margin-right: calc(100% - 100vw);
 }
 </style>

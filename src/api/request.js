@@ -20,6 +20,8 @@ import axios from 'axios'
 import nprogress from 'nprogress'
 // 引入进度条样式
 import 'nprogress/nprogress.css'
+// 引入element-ui通知
+import { Notification } from 'element-ui'
 
 // 1.利用axios对象的方法create，去创建一个axios实例
 // 2.request就是axios，只不过稍微配置一下
@@ -46,7 +48,12 @@ requests.interceptors.response.use((res) => {
     return res.data
 }, (error) => {
     // 失败的回调函数
+    Notification.error({
+        title: '请求失败！',
+        message: error
+    })
     console.log('响应失败' + error)
+    nprogress.done()
     return Promise.reject(new Error('fail'))
 })
 

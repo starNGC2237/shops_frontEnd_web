@@ -32,6 +32,8 @@ import Register from '@/pages/Service/Register'
 import NotFound from '@/components/NotFound'
 import Service from '@/pages/Service'
 import Scan from '@/pages/Service/Scan'
+import Forget from '@/pages/Service/Forget'
+import FeedBack from '@/pages/FeedBack'
 
 // 配置路由
 export default new VueRouter({
@@ -65,8 +67,17 @@ export default new VueRouter({
                 {
                     path: 'scan',
                     component: Scan
+                },
+                {
+                    path: 'forget',
+                    component: Forget
                 }
             ]
+        },
+        {
+            path: '/service/feedback',
+            component: FeedBack,
+            meta: { show: true }
         },
         {
             path: '/404',

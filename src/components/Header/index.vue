@@ -10,9 +10,7 @@
     <div class='header'>
         <div class='container'>
             <div class='welcome'>
-                <span class='welcome_word'
-                ><router-link to='/home'>某商城欢迎您！</router-link></span
-                >
+                <span class='welcome_word'><router-link to='/home'>某商城欢迎您！</router-link></span>
                 <span><router-link to='/service/login'>登录</router-link></span>
                 <span class='welcome_split'>|</span>
                 <span><router-link to='/service/register'>注册</router-link></span>
@@ -26,7 +24,7 @@
                 <span class='welcome_split'>|</span>
                 <span><a href='#'>某商城会员</a></span>
                 <span class='welcome_split'>|</span>
-                <span><a href='#'>关注某商城</a></span>
+                <span><router-link to='/service/feedback'>用户反馈</router-link></span>
                 <span class='welcome_split'>|</span>
                 <span><a target='_blank' href='https://shopsadmin.starlibrary.online'>商家后台</a></span>
             </div>

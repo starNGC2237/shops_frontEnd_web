@@ -12,7 +12,7 @@
             <div>
                 <ul>
                     <li class='bottom_content_logo'>
-                        <a href='https://tostar.site'>某商城</a>
+                        <a href='https://shops.starlibrary.online'>某商城</a>
                     </li>
                     <li>
                         © 2020-至今

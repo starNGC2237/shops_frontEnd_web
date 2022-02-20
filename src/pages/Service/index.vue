@@ -5,7 +5,8 @@
                 <el-menu :default-active="$route.path" mode="horizontal" :router='true'>
                     <el-menu-item index="/service/login">密码登录</el-menu-item>
                     <el-menu-item index="/service/scan">扫码登录</el-menu-item>
-                    <el-menu-item index="/service/register" >注册账号</el-menu-item>
+                    <el-menu-item index="/service/register">注册账号</el-menu-item>
+                    <el-menu-item index="/service/forget">忘记密码</el-menu-item>
                 </el-menu>
                 <keep-alive>
                     <router-view></router-view>

@@ -1,11 +1,3 @@
-<!--
- * @Author: zhilutianji
- * @Date: 2022-01-02 20:21:27
- * @LastEditors: zhilutianji
- * @LastEditTime: 2022-01-12 14:50:28
- * @Description: file content
- * @FilePath: \shops_frontend_web\src\pages\Login\index.vue
--->
 <template>
     <el-form ref="form" :model="form" class='form'>
         <el-form-item label="账号名称：">
@@ -15,14 +7,14 @@
             <el-input v-model="form.desc"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button style='width: 100%' type="primary">登录</el-button>
+            <el-button style='width: 100%' type="primary">找回密码</el-button>
         </el-form-item>
     </el-form>
 </template>
 
 <script>
 export default {
-    name: 'Login',
+    name: 'forget',
     data() {
         return {
             form: {}
@@ -31,7 +23,7 @@ export default {
 }
 </script>
 
-<style scoped lang='scss'>
+<style scoped>
 .form{
     width: 100%;
     padding: 2rem;
