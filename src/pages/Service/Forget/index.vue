@@ -3,7 +3,7 @@
         <el-form-item label="账号名称：">
             <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="账号密码：">
+        <el-form-item label="手机号：">
             <el-input v-model="form.desc"></el-input>
         </el-form-item>
         <el-form-item>

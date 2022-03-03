@@ -1,13 +1,5 @@
 /*
  * @Author: zhilutianji
- * @Date: 2022-01-02 19:03:55
- * @LastEditors: zhilutianji
- * @LastEditTime: 2022-01-12 14:46:57
- * @Description: file content
- * @FilePath: \shops_frontend_web\src\api\request.js
- */
-/*
- * @Author: zhilutianji
  * @Date: 2021-12-31 13:18:11
  * @LastEditors: zhilutianji
  * @LastEditTime: 2022-01-01 23:14:10
