@@ -30,6 +30,7 @@ export default {
     methods: {
         socketOpen(token) {
             // 发起连接
+            this.$store.dispatch('categoryList')
             socket.init()
         }
 

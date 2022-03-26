@@ -145,7 +145,6 @@ router.beforeEach((to, from, next) => {
         if (to.meta.needToken !== false) {
             // 如果没有登录，但你访问其他需要登录的页面，那我就让你跳到登录页面去
             Message.warning('未登录，请先登录')
-            Cookie.setCookie('token', '1', '')
             nprogress.done()
             next({ path: '/service/login' })
         } else {

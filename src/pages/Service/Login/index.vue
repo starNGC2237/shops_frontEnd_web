@@ -49,6 +49,7 @@ export default {
                         type: 'success',
                         message: res.msg
                     })
+                    this.$store.commit('GETTOKEN', res.data)
                     this.$router.push({ path: '/home' })
                 } else {
                     this.$message({

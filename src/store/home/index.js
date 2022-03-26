@@ -5,7 +5,7 @@ const state = {
 }
 
 const mutations = {
-    CATEGORYLIST(categoryList) {
+    CATEGORYLIST(state, categoryList) {
         state.categoryList = categoryList
     }
 }

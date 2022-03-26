@@ -2,7 +2,7 @@
 import request from '@/api/request'
 // 获取该用户的工单列表接口
 function login(params) {
-    return request.get(`/user/login?userName=${params.userName}&passWord=${params.passWord}`)
+    return request.get('/user/login', { params })
 }
 export default {
     login
