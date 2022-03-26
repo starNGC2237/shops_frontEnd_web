@@ -1,15 +1,13 @@
 <template>
-    <h2>扫码</h2>
+    <h1>地址</h1>
 </template>
 
 <script>
 export default {
-    name: 'Scan'
+    name: 'address'
 }
 </script>
 
 <style scoped lang='scss'>
-    h2{
-        margin: 2rem;
-    }
+
 </style>

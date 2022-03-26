@@ -7,25 +7,63 @@
  * @FilePath: \shops_frontend_web\src\pages\Login\index.vue
 -->
 <template>
-    <el-form ref="form" :model="form" class='form'>
+    <el-form
+        ref="form"
+        :model="form"
+        v-loading.fullscreen.lock="loginLoading"
+        element-loading-text="登录中......"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0, 0, 0, 0.8)"
+        class='form'>
         <el-form-item label="账号名称：">
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="form.userName"></el-input>
         </el-form-item>
         <el-form-item label="账号密码：">
-            <el-input v-model="form.desc"></el-input>
+            <el-input v-model="form.passWord"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button style='width: 100%' type="primary">登录</el-button>
+            <el-button style='width: 100%' type="primary" @click='loginByParams'>登录</el-button>
         </el-form-item>
     </el-form>
 </template>
 
 <script>
+import ApiLogin from '@/api/userInfo/login'
 export default {
     name: 'Login',
     data() {
         return {
-            form: {}
+            form: {
+                userName: '',
+                passWord: ''
+            },
+            loginLoading: false
+        }
+    },
+    methods: {
+        loginByParams() {
+            this.loginLoading = true
+            ApiLogin.login(this.form).then(res => {
+                if (res.code === '200') {
+                    this.$message({
+                        type: 'success',
+                        message: res.msg
+                    })
+                    this.$router.push({ path: '/home' })
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: res.msg
+                    })
+                }
+            }).catch(() => {
+                this.$message({
+                    type: 'error',
+                    message: '网络错误'
+                })
+            }).finally(() => {
+                this.loginLoading = false
+            })
         }
     }
 }

@@ -17,6 +17,7 @@
 <script>
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { socket } from '../utils/socket'
 export default {
     name: 'App',
     components: {
@@ -25,6 +26,13 @@ export default {
     },
     mounted() {
         this.$store.dispatch('categoryList')
+    },
+    methods: {
+        socketOpen(token) {
+            // 发起连接
+            socket.init()
+        }
+
     }
 }
 </script>
@@ -35,12 +43,9 @@ html {
     background-color: #F5F5F5;
     min-width: 1226px;
     line-height: 1.5 !important;
-    overflow-y: auto;
-    /*noinspection CssInvalidPropertyValue*/
-    overflow-y: overlay;
-    overflow-x: hidden;
+    overflow-y: scroll;
 }
-#app{
-    margin-right: calc(100% - 100vw);
+body{
+    padding: 0!important;
 }
 </style>

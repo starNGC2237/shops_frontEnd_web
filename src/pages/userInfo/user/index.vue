@@ -1,0 +1,119 @@
+<template>
+    <div class='user'>
+        <div class='user_form'>
+            <h2 style='margin: 0;'>用户信息</h2>
+            <el-divider></el-divider>
+            <el-form
+                ref='user_form'
+                :rules='rules'
+                label-position="left"
+                label-width="80px"
+                :model="formUser">
+                <el-form-item
+                    prop='userName'
+                    label="用户名">
+                    <el-input
+                        v-model="formUser.userName"
+                        maxlength="10"
+                        disabled
+                        show-word-limit>
+                    </el-input>
+                </el-form-item>
+                <el-form-item
+                    prop='nickName'
+                    label="昵称">
+                    <el-input
+                        v-model="formUser.nickName"
+                        maxlength="10"
+                        show-word-limit>
+                    </el-input>
+                </el-form-item>
+                <el-form-item
+                    prop='role'
+                    label="权限">
+                    <el-input
+                        v-model="formUser.role"
+                        disabled>
+                    </el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button @click='submitForm("user_form")'>确认</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+        <div class='user_headPic'>
+            <el-image
+                style="width: 100px; height: 100px"
+                src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+                fit="fill">
+            </el-image>
+        </div>
+    </div>
+
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+    name: 'user',
+    data() {
+        return {
+            rules: {
+                userName: [
+                    { required: true, message: '无用户名！请刷新页面', trigger: 'blur' }
+                ],
+                role: [
+                    { required: true, message: '无权限！请刷新页面', trigger: 'blur' }
+                ],
+                nickName: [
+                    { required: true, message: '请输入昵称', trigger: 'blur' },
+                    { min: 3, max: 5, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+                ]
+            },
+            formUser: {
+                userName: '',
+                nickName: '',
+                role: ''
+            }
+        }
+    },
+    methods: {
+        submitForm(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    alert('submit!')
+                } else {
+                    console.log('error submit!!')
+                    return false
+                }
+            })
+        }
+    },
+    computed: {
+        ...mapState({
+            // 右侧需要的是一个函数，当使用这个计算属性的时候，右侧函数会立即执行一次
+            // 注入一个参数state，其实即为大仓库中的数据
+            token: ($state) => {
+                return $state.cookie.token
+            }
+        })
+    }
+}
+</script>
+
+<style scoped lang='scss'>
+    .user{
+        display: flex;
+        width: 100%;
+        >.user_form{
+            width: 65%;
+            margin-right: 5%;
+        }
+        >.user_headPic{
+            width: 30%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+</style>

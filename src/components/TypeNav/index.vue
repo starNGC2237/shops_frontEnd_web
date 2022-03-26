@@ -9,26 +9,30 @@
                 </div>
                 <div class='all'>
                     <span class='all-h2' v-show='!show'>全部商品分类</span>
-                    <div v-show='show'  class='all-show' :style='autoHeight'>
+                    <div v-show='show'  class='all-show' :style='autoHeight' @click="gotoSearch">
                         <ul>
                             <li v-for="(c1) in categoryList.slice(0,10)" :key="c1.categoryId">
-                                <a><span>{{c1.categoryName}}</span><i class='el-icon-arrow-right'></i></a>
+                                <a :data-categoryName="c1.categoryName"
+                                   :data-category1id="c1.categoryId">
+                                    <span :data-categoryName="c1.categoryName"
+                                          :data-category1id="c1.categoryId">{{c1.categoryName}}</span>
+                                    <i :data-categoryName="c1.categoryName"
+                                       :data-category1id="c1.categoryId" class='el-icon-arrow-right'></i>
+                                </a>
                                 <div class='c1-container'>
                                     <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
-                                        <dt>
+                                        <dt class='fore-dt'>
                                             <a
                                                 :data-categoryName="c2.categoryName"
                                                 :data-category2id="c2.categoryId"
-                                            >{{ c2.categoryName }}</a
-                                            >
+                                            >{{ c2.categoryName }}</a>
                                         </dt>
                                         <dd>
-                                            <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                                            <em v-for="c3 in c2.categoryChild" :key="c3.categoryId" class='fore-em'>
                                                 <a
                                                     :data-categoryName="c3.categoryName"
                                                     :data-category3id="c3.categoryId"
-                                                >{{ c3.categoryName }}</a
-                                                >
+                                                >{{ c3.categoryName }}</a>
                                             </em>
                                         </dd>
                                     </dl>
@@ -37,35 +41,34 @@
                         </ul>
                     </div>
                 </div>
-                <nav>
-                    <router-link to='/home' v-for='c1 in categoryList.slice(11,categoryList.length)' :key='c1.categoryId'>
-                        <span>{{ c1.categoryName }}</span>
+                <nav @click='gotoSearch'>
+                    <a v-for='c1 in categoryList.slice(11,categoryList.length)'
+                       :key='c1.categoryId'>
+                        <span style='cursor: pointer;' :data-categoryName="c1.categoryName" :data-category1id="c1.categoryId">{{ c1.categoryName }}</span>
                         <div class='all-show-remaining'>
                             <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
-                                <dt>
+                                <dt class='fore-dt'>
                                     <a
                                         :data-categoryName="c2.categoryName"
                                         :data-category2id="c2.categoryId"
-                                    >{{ c2.categoryName }}</a
-                                    >
+                                    >{{ c2.categoryName }}</a>
                                 </dt>
                                 <dd>
-                                    <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                                    <em v-for="c3 in c2.categoryChild" :key="c3.categoryId" class='fore-em'>
                                         <a
                                             :data-categoryName="c3.categoryName"
                                             :data-category3id="c3.categoryId"
-                                        >{{ c3.categoryName }}</a
-                                        >
+                                        >{{ c3.categoryName }}</a>
                                     </em>
                                 </dd>
                             </dl>
                         </div>
-                    </router-link>
+                    </a>
                 </nav>
             </div>
             <div class='search'>
-                <el-input type='text' v-model='keyword' @keydown.enter.native='gotoSearch()' size='large'>
-                    <el-button slot="append" icon="el-icon-search" @click='gotoSearch()'></el-button>
+                <el-input type='text' v-model='keyword' @keydown.enter.native='gotoSearch' size='large'>
+                    <el-button slot="append" icon="el-icon-search" @click='gotoSearch'></el-button>
                 </el-input>
             </div>
         </div>
@@ -87,17 +90,45 @@ export default {
         }
     },
     methods: {
-        gotoSearch() {
-            if (this.keyword !== '') {
+        gotoSearch(event) {
+            const element = event.target
+            // dataset可以获取到自定义属性
+            const { categoryname, category1id, category2id, category3id } = element.dataset
+            const queryRoute = this.$route.query
+            if (this.keyword !== '' || categoryname || JSON.stringify(queryRoute) !== '{}') {
                 const location = { name: 'search' }
-                location.query = { keyword: this.keyword }
+                if (categoryname || JSON.stringify(queryRoute) !== '{}') {
+                    if (categoryname) {
+                        const query = { categoryName: categoryname }
+                        if (category1id) {
+                            query.category1Id = category1id
+                        } else if (category2id) {
+                            query.category2Id = category2id
+                        } else if (category3id) {
+                            query.category3Id = category3id
+                        }
+                        location.query = query
+                    } else {
+                        location.query = queryRoute
+                    }
+                }
+                location.params = this.$route.params
+                if (this.keyword !== '') {
+                    location.params.keyword = this.keyword
+                }
                 this.$router.push(location)
             }
+        },
+        clear() {
+            this.keyword = ''
         }
     },
     mounted() {
         if (this.$route.path !== '/home') {
             this.show = false
+        }
+        if (this.$route.params.keyword) {
+            this.keyword = this.$route.params.keyword
         }
     },
     computed: {
@@ -105,17 +136,9 @@ export default {
             // 右侧需要的是一个函数，当使用这个计算属性的时候，右侧函数会立即执行一次
             // 注入一个参数state，其实即为大仓库中的数据
             categoryList: ($state) => {
-                console.log($state.home.categoryList)
                 return $state.home.categoryList
             }
         })
-    },
-    watch: {
-        // categoryList() {
-        // console.log('已被改变')
-        // console.log(this.categoryList)
-        // this.autoHeight.height = this.categoryList.length * 42 + 'px'
-        // }
     }
 }
 </script>
@@ -259,5 +282,16 @@ export default {
         width: 56px;
         height: 56px;
     }
+}
+.fore-dt{
+    cursor: pointer;
+    width: fit-content;
+    >a{
+        color: #409EFF;
+    }
+}
+.fore-em{
+    cursor: pointer;
+    margin-right: 1rem;
 }
 </style>

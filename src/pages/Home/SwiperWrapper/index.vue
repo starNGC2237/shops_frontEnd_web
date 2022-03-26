@@ -1,9 +1,9 @@
 <template>
-    <div class='swiper-wrapper'>
-        <div class='container'>
+    <el-carousel style='width: 1226px;height:460px;' direction="vertical" autoplay :interval="4000">
+        <el-carousel-item style='width: 1226px;height: 460px;' v-for='item in 4' :key='item'>
             <img src='https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/328715e54aafd28fd4001b9e50ddbd87.png?thumb=1&w=1839&h=690&f=webp&q=90' alt=''>
-        </div>
-    </div>
+        </el-carousel-item>
+    </el-carousel>
 </template>
 
 <script>
@@ -13,18 +13,13 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.swiper-wrapper{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    >.container{
-        width: 1226px;
-        height: 460px;
-        img{
-            width: 1226px;
-            height: 460px;
-        }
-    }
+img{
+    width: 1226px;
+    height: 460px;
+    cursor: pointer;
 }
-
+.el-carousel__container{
+    width: fit-content;
+    height: fit-content;
+}
 </style>

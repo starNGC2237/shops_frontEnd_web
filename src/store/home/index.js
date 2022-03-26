@@ -1,11 +1,11 @@
-import { reqCateGoryList } from '@/api'
+import { reqCateGoryList } from '@/api/categorys'
 
 const state = {
     categoryList: []
 }
 
 const mutations = {
-    CATEGORYLIST(state, categoryList) {
+    CATEGORYLIST(categoryList) {
         state.categoryList = categoryList
     }
 }

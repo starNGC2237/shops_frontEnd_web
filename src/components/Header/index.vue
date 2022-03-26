@@ -11,30 +11,41 @@
         <div class='container'>
             <div class='welcome'>
                 <span class='welcome_word'><router-link to='/home'>某商城欢迎您！</router-link></span>
-                <span><router-link to='/service/login'>登录</router-link></span>
-                <span class='welcome_split'>|</span>
-                <span><router-link to='/service/register'>注册</router-link></span>
+                <span v-if='token===""'><router-link to='/service/login'>登录</router-link></span>
+                <span v-if='token===""' class='welcome_split'>|</span>
+                <span v-if='token===""'><router-link to='/service/register'>注册</router-link></span>
             </div>
             <div class='functions'>
                 <span><a href='#'>我的订单</a></span>
                 <span class='welcome_split'>|</span>
-                <span><a href='#'>我的购物车</a></span>
+                <span><router-link to='/shoppingcart'>我的购物车</router-link></span>
                 <span class='welcome_split'>|</span>
-                <span><a href='#'>我的某商城</a></span>
+                <span><router-link to='/message'>我的通知</router-link></span>
                 <span class='welcome_split'>|</span>
-                <span><a href='#'>某商城会员</a></span>
+                <span><router-link to='/userInfo/user'>用户信息</router-link></span>
                 <span class='welcome_split'>|</span>
                 <span><router-link to='/service/feedback'>用户反馈</router-link></span>
                 <span class='welcome_split'>|</span>
-                <span><a target='_blank' href='https://shopsadmin.starlibrary.online'>商家后台</a></span>
+                <span><a target='_blank' href='https://backstage.starlibrary.online'>商家后台</a></span>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-    name: 'Header'
+    name: 'Header',
+    computed: {
+        ...mapState({
+            // 右侧需要的是一个函数，当使用这个计算属性的时候，右侧函数会立即执行一次
+            // 注入一个参数state，其实即为大仓库中的数据
+            token: ($state) => {
+                return $state.cookie.token
+            }
+        })
+    }
 }
 </script>
 
@@ -95,7 +106,8 @@ export default {
             display: inline-block;
             height: 40px;
             line-height: 40px;
-            > a {
+            >a {
+                cursor: pointer;
                 text-decoration: none;
                 color: #b0b0b0;
                 display: inline-block;

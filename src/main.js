@@ -15,23 +15,12 @@ import store from './store'
 // 引入css重置
 import 'normalize.css/normalize.css'
 // 按需引入element-ui
-import { Card, Button, Col, Row, Result, Image, Icon, Form, FormItem, Input, Submenu, MenuItem, Menu, Checkbox } from 'element-ui'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.config.productionTip = false
-Vue.component(Card.name, Card)
-Vue.component(Button.name, Button)
-Vue.component(Col.name, Col)
-Vue.component(Row.name, Row)
-Vue.component(Result.name, Result)
-Vue.component(Image.name, Image)
-Vue.component(Icon.name, Icon)
-Vue.component(Form.name, Form)
-Vue.component(FormItem.name, FormItem)
-Vue.component(Input.name, Input)
-Vue.component(Submenu.name, Submenu)
-Vue.component(MenuItem.name, MenuItem)
-Vue.component(Menu.name, Menu)
-Vue.component(Checkbox.name, Checkbox)
+
+Vue.use(ElementUI)
 new Vue({
     render: h => h(App),
     store,
