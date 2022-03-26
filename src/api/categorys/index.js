@@ -3,7 +3,7 @@ import test from '@/api/test'
 // 首页三级分类接口
 export const reqCateGoryList = () => {
     return test({
-        url: '/api/product/getBaseCategoryList',
+        url: '/product/getBaseCategoryList',
         method: 'GET'
     })
 }
