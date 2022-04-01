@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import ApiLogin from '@/api/userInfo/login'
+import ApiUserInfo from '@/api/userInfo/userInfo'
 export default {
     name: 'Login',
     data() {
@@ -43,19 +43,27 @@ export default {
     methods: {
         loginByParams() {
             this.loginLoading = true
-            ApiLogin.login(this.form).then(res => {
-                if (res.code === '200') {
+            ApiUserInfo.login(this.form).then(res => {
+                if (res.code === '200' && res.data.role === '用户') {
                     this.$message({
                         type: 'success',
                         message: res.msg
                     })
-                    this.$store.commit('GETTOKEN', res.data)
+                    this.$store.commit('SETTOKEN', res.data)
+                    this.$bus.$emit('socketOpen', res.data)
                     this.$router.push({ path: '/home' })
                 } else {
-                    this.$message({
-                        type: 'error',
-                        message: res.msg
-                    })
+                    if (res.data.role) {
+                        this.$message({
+                            type: 'error',
+                            message: '权限不正确！'
+                        })
+                    } else {
+                        this.$message({
+                            type: 'error',
+                            message: res.msg
+                        })
+                    }
                 }
             }).catch(() => {
                 this.$message({

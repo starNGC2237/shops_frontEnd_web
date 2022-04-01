@@ -18,6 +18,7 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { socket } from '../utils/socket'
+import Cookie from '../utils/cookie'
 export default {
     name: 'App',
     components: {
@@ -25,13 +26,18 @@ export default {
         Footer
     },
     mounted() {
+        this.$bus.$on('socketOpen', this.socketOpen)
         this.$store.dispatch('categoryList')
+        if (Cookie.getCookie('token')) {
+            socket.init(Cookie.getCookie('token'))
+        }
     },
     methods: {
         socketOpen(token) {
             // 发起连接
-            this.$store.dispatch('categoryList')
-            socket.init()
+            if (Cookie.getCookie('token')) {
+                socket.init(Cookie.getCookie('token'))
+            }
         }
 
     }

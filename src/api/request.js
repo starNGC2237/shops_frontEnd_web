@@ -12,6 +12,7 @@ import axios from 'axios'
 import nprogress from 'nprogress'
 // 引入进度条样式
 import 'nprogress/nprogress.css'
+import Cookie from '../../utils/cookie'
 
 // 1.利用axios对象的方法create，去创建一个axios实例
 // 2.request就是axios，只不过稍微配置一下
@@ -26,6 +27,17 @@ const request = axios.create({
 request.interceptors.request.use((config) => {
     // 进度条开始
     nprogress.start()
+    if (config.method === 'post' || config.method === 'put' || config.method === 'delete') {
+        if (config.type === 'json') {
+            config.headers['Content-Type'] = 'application/json;charset=utf-8'
+            config.data = JSON.stringify(config.data)
+        }
+    }
+    const token = Cookie.getCookie('token')
+    // let token = Cookies.get('token');
+    if (token) {
+        config.headers['token'] = token
+    }
     return config
 })
 

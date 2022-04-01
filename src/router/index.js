@@ -10,6 +10,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Cookie from '../../utils/cookie'
 import { Message } from 'element-ui'
+import store from '../store/index'
 // 引入进度条
 import nprogress from 'nprogress'
 
@@ -134,13 +135,28 @@ const router = new VueRouter({
         }
     ]
 })
-router.beforeEach((to, from, next) => {
+router.beforeEach(async(to, from, next) => {
     nprogress.start()
-    const token = Cookie.getCookie('token') // 用户token
+    const token = Cookie.getCookie('token')
     console.log(token)
     if (token) { // 如果已经登录，那我不干涉你，让你随便访问
-        nprogress.done()
-        next()
+        if (to.path === '/login') {
+            // if is logged in, redirect to the home page
+            nprogress.done()
+            next({ path: '/' })
+        } else {
+            const hasGetUserInfo = store.state.user.userName
+            if (hasGetUserInfo) {
+                nprogress.done()
+                next()
+            } else {
+                // remove token and go to login page to re-login
+                Cookie.setCookie('token', '', '')
+                Message.error('Has Error')
+                nprogress.done()
+                next(`/service/login`)
+            }
+        }
     } else {
         if (to.meta.needToken !== false) {
             // 如果没有登录，但你访问其他需要登录的页面，那我就让你跳到登录页面去

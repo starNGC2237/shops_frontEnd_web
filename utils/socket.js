@@ -1,6 +1,6 @@
 // 在Vue中使用，不需要可以去除以下引用
-import Vue from 'vue'
-import cookie from './cookie'
+// import Vue from 'vue'
+// import cookie from './cookie'
 import { Notification } from 'element-ui'
 
 // 导出socket对象
@@ -19,7 +19,7 @@ var socket = {
     // 心跳timer
     hearbeat_timer: null,
     // 心跳发送频率
-    hearbeat_interval: 5000,
+    hearbeat_interval: 300000,
 
     // 是否自动重连
     is_reonnect: true,
@@ -97,8 +97,9 @@ var socket = {
     send: (data, callback = null) => {
         // 开启状态直接发送
         if (socket.websock.readyState === socket.websock.OPEN) {
-            socket.websock.send(JSON.stringify(data))
-
+            // todo
+            // socket.websock.send(JSON.stringify(data))
+            socket.websock.send(data)
             if (callback) {
                 callback()
             }
@@ -123,6 +124,7 @@ var socket = {
      * @param {*} message 接收到的消息
      */
     receive: (message) => {
+        // todo
         // var params = JSON.parse(message.data)
         Notification.success({
             title: '公告',
@@ -130,8 +132,8 @@ var socket = {
         })
         /*
         *
-        if (params.kind != 0) {
-            console.log('收到服务器内容：', message.data)
+        if (params.messageType != 'pong') {
+            console.log('收到服务器心跳：', message.data)
         }
 
         if (params == undefined) {
@@ -196,13 +198,16 @@ var socket = {
         }
 
         socket.hearbeat_timer = setInterval(() => {
-            const token = cookie.getCookie('token')
-            var data = {
+            // const token = cookie.getCookie('token')
+            /*
+            * var data = {
                 kind: 0, // 请求类型 kind 0 心跳包
                 shop_id: Vue.prototype.$shop_id(false), // 如果是商家 传当前店铺ID 否则可不传
                 'API-Token': token, // 用户的token
                 'API-Source': 'MERCHANT' // MERCHANT  商家  CUSTOMER  顾客
             }
+            * */
+            var data = 'ping'
             socket.send(data)
         }, socket.hearbeat_interval)
     },
