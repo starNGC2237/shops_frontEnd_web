@@ -10,7 +10,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Cookie from '../../utils/cookie'
 import { Message } from 'element-ui'
-import store from '../store/index'
+import store from '../store'
 // 引入进度条
 import nprogress from 'nprogress'
 
@@ -150,11 +150,17 @@ router.beforeEach(async(to, from, next) => {
                 nprogress.done()
                 next()
             } else {
-                // remove token and go to login page to re-login
-                Cookie.setCookie('token', '', '')
-                Message.error('Has Error')
-                nprogress.done()
-                next(`/service/login`)
+                try {
+                    console.log(store)
+                    nprogress.done()
+                    await store.dispatch('getInfo')
+                } catch (msg) {
+                    // remove token and go to login page to re-login
+                    await store.commit('QUIT')
+                    Message.error(msg || 'Has Error')
+                    nprogress.done()
+                    next(`/service/login`)
+                }
             }
         }
     } else {
