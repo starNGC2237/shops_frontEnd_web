@@ -151,13 +151,12 @@ router.beforeEach(async(to, from, next) => {
                 next()
             } else {
                 try {
-                    console.log(store)
-                    nprogress.done()
                     await store.dispatch('getInfo')
-                } catch (msg) {
+                    nprogress.done()
+                } catch (err) {
                     // remove token and go to login page to re-login
                     await store.commit('QUIT')
-                    Message.error(msg || 'Has Error')
+                    Message.error('获取用户信息失败，请重新登录！')
                     nprogress.done()
                     next(`/service/login`)
                 }
