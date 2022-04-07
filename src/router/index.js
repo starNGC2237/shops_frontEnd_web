@@ -9,7 +9,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Cookie from '../../utils/cookie'
-import { Message } from 'element-ui'
+import { Message, Notification } from 'element-ui'
 import store from '../store'
 // 引入进度条
 import nprogress from 'nprogress'
@@ -153,10 +153,21 @@ router.beforeEach(async(to, from, next) => {
                 try {
                     await store.dispatch('getInfo')
                     nprogress.done()
+                    next()
                 } catch (err) {
+                    if (err === '权限错误') {
+                        Notification.error({
+                            title: '错误',
+                            message: '权限错误，已退出，请重新登录！'
+                        })
+                    } else {
+                        Notification.error({
+                            title: '错误',
+                            message: '获取用户信息失败，已退出，请重新登录！'
+                        })
+                    }
                     // remove token and go to login page to re-login
                     await store.commit('QUIT')
-                    Message.error('获取用户信息失败，请重新登录！')
                     nprogress.done()
                     next(`/service/login`)
                 }

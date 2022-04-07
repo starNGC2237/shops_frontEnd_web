@@ -43,8 +43,8 @@
         </div>
         <div class='user_headPic'>
             <el-image
-                style="width: 100px; height: 100px"
-                src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+                style="width: 100px; height: 100px;box-shadow: 0 0.33rem 0.66rem 0 rgba(0, 0, 0, 0.2), 0 0.5rem 1.66rem 0 rgba(0, 0, 0, 0.19);;"
+                :src="formUser.imageUrl"
                 fit="fill">
             </el-image>
         </div>
@@ -54,6 +54,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import _ from 'lodash'
 
 export default {
     name: 'user',
@@ -74,9 +75,13 @@ export default {
             formUser: {
                 userName: '',
                 nickName: '',
-                role: ''
+                role: '',
+                imageUrl: ''
             }
         }
+    },
+    mounted() {
+        Object.assign(this.formUser, _.cloneDeep(this.$store.state.user))
     },
     methods: {
         submitForm(formName) {

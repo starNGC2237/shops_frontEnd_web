@@ -47,14 +47,18 @@ const actions = {
                 if (!data) {
                     return reject('Verification failed, please Login again.')
                 }
-                const { userName, imageUrl, nickName, createTime, phone, role } = data
-                commit('SET_USERNAME', userName)
-                commit('SET_IMAGEURL', imageUrl)
-                commit('SET_NICKNAME', nickName)
-                commit('SET_CREATETIME', createTime)
-                commit('SET_PHONE', phone)
-                commit('SET_ROLE', role)
-                resolve(data)
+                if (data.role === '用户') {
+                    const { userName, imageUrl, nickName, createTime, phone, role } = data
+                    commit('SET_USERNAME', userName)
+                    commit('SET_IMAGEURL', imageUrl)
+                    commit('SET_NICKNAME', nickName)
+                    commit('SET_CREATETIME', createTime)
+                    commit('SET_PHONE', phone)
+                    commit('SET_ROLE', role)
+                    resolve(data)
+                } else {
+                    reject('权限错误')
+                }
             }).catch(error => {
                 reject(error)
             })

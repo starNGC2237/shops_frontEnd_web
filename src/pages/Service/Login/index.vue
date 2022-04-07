@@ -44,14 +44,18 @@ export default {
         loginByParams() {
             this.loginLoading = true
             ApiUserInfo.login(this.form).then(res => {
-                if (res.code === '200' && res.data.role === '用户') {
+                if (res.code === '200') {
                     this.$message({
                         type: 'success',
                         message: res.msg
                     })
-                    this.$store.commit('SETTOKEN', res.data)
-                    this.$bus.$emit('socketOpen', res.data)
-                    this.$router.push({ path: '/home' })
+                    try {
+                        this.$store.commit('SETTOKEN', res.data)
+                        this.$bus.$emit('socketOpen', res.data)
+                        this.$router.push({ path: '/home' })
+                    } catch (err) {
+                        console.log(err)
+                    }
                 } else {
                     if (res.data.role) {
                         this.$message({
