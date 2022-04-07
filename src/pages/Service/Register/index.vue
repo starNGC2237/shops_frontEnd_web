@@ -102,7 +102,7 @@ export default {
             const params = {
                 userName,
                 passWord,
-                phone,
+                phone: parseInt(phone, 10),
                 nickName,
                 score: 90,
                 role: '用户'

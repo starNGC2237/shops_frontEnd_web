@@ -3,7 +3,6 @@ import request from '@/api/request'
 // 用户登录
 function login(params) {
     return request.post('/user/login', params, { type: 'json' })
-    // return request.post('/user/login?passWord=' + params.passWord + '&userName=' + params.userName)
 }
 // 用户注册
 function register(params) {
@@ -21,10 +20,15 @@ function userInfo() {
 function reNickName(nickName) {
     return request.get('/user/reNickName', { params: { nickName }})
 }
+// 忘记密码
+function fdPassWord(params) {
+    return request.post('/user/fdPassWord', params, { type: 'json' })
+}
 export default {
     login,
     register,
     userInfo,
     rePassWord,
+    fdPassWord,
     reNickName
 }
