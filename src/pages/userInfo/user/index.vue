@@ -4,6 +4,7 @@
             <h2 style='margin: 0;'>用户信息</h2>
             <el-divider></el-divider>
             <el-form
+                v-loading='loading'
                 ref='user_form'
                 :rules='rules'
                 label-position="left"
@@ -26,6 +27,22 @@
                         v-model="formUser.nickName"
                         maxlength="10"
                         show-word-limit>
+                    </el-input>
+                </el-form-item>
+                <el-form-item
+                    prop='createTime'
+                    label="创建时间">
+                    <el-input
+                        v-model="formUser.createTime"
+                        disabled>
+                    </el-input>
+                </el-form-item>
+                <el-form-item
+                    prop='phone'
+                    label="手机号">
+                    <el-input
+                        v-model="formUser.phone"
+                        disabled>
                     </el-input>
                 </el-form-item>
                 <el-form-item
@@ -54,12 +71,14 @@
 
 <script>
 import { mapState } from 'vuex'
+import ApiUserInfo from '@/api/userInfo/userInfo'
 import _ from 'lodash'
 
 export default {
     name: 'user',
     data() {
         return {
+            loading: false,
             rules: {
                 userName: [
                     { required: true, message: '无用户名！请刷新页面', trigger: 'blur' }
@@ -76,7 +95,9 @@ export default {
                 userName: '',
                 nickName: '',
                 role: '',
-                imageUrl: ''
+                imageUrl: '',
+                createTime: '',
+                phone: 0
             }
         }
     },
@@ -87,7 +108,23 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!')
+                    this.loading = true
+                    ApiUserInfo.reNickName(this.formUser.nickName).then(res => {
+                        if (res.code === '200') {
+                            this.$message({
+                                type: 'success',
+                                message: res.msg
+                            })
+                            this.$store.dispatch('getInfo')
+                        } else {
+                            this.$message({
+                                type: 'error',
+                                message: res.msg
+                            })
+                        }
+                    }).catch().finally(() => {
+                        this.loading = false
+                    })
                 } else {
                     console.log('error submit!!')
                     return false

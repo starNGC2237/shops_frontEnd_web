@@ -17,9 +17,14 @@ function rePassWord(params) {
 function userInfo() {
     return request.get('/user/userInfo')
 }
+// 修改nickName
+function reNickName(nickName) {
+    return request.get('/user/reNickName', { params: { nickName }})
+}
 export default {
     login,
     register,
     userInfo,
-    rePassWord
+    rePassWord,
+    reNickName
 }

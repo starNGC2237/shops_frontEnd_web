@@ -158,7 +158,7 @@ router.beforeEach(async(to, from, next) => {
                     if (err === '权限错误') {
                         Notification.error({
                             title: '错误',
-                            message: '权限错误，已退出，请重新登录！'
+                            message: '权限错误，已退出！'
                         })
                     } else {
                         Notification.error({
