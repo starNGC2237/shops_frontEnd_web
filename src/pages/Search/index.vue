@@ -137,8 +137,8 @@ export default {
     box-sizing: border-box;
 }
 img{
-    width: 100%;
-    height: 203px;
+    width: 200px;
+    height: 200px;
 }
 .recommended-img{
     display: flex;

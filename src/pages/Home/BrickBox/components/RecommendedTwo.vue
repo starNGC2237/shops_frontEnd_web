@@ -1,6 +1,6 @@
 <template>
     <div class='recommended-two'>
-        <el-card shadow="hover" :body-style='{padding:"20px 0"}'>
+        <el-card @click.native='toGood' shadow="hover" :body-style='{padding:"20px 0"}'>
             <div class='recommended-img'>
                 <img src='https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e870129c5c374088bf7cc46be0b7ace2.jpg?thumb=1&w=300&h=300&f=webp&q=90' alt=''>
             </div>
@@ -14,7 +14,7 @@
                 <span>起</span>
             </p>
         </el-card>
-        <el-card shadow="hover" :body-style='{padding:"20px 0"}'>
+        <el-card @click.native='toGood' shadow="hover" :body-style='{padding:"20px 0"}'>
             <div class='recommended-img'>
                 <img src='https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e870129c5c374088bf7cc46be0b7ace2.jpg?thumb=1&w=300&h=300&f=webp&q=90' alt=''>
             </div>
@@ -33,7 +33,13 @@
 
 <script>
 export default {
-    name: 'RecommendedTwo'
+    name: 'RecommendedTwo',
+    methods: {
+        toGood() {
+            console.log('1')
+            this.$router.push({ path: '/good' })
+        }
+    }
 }
 </script>
 

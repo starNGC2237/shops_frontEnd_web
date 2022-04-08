@@ -29,6 +29,7 @@ import UserAddress from '@/pages/userInfo/userAddress'
 import PhoneLogin from '@/pages/Service/phoneLogin'
 import ShoppingCart from '@/pages/ShoppingCart'
 import RePassWord from '@/pages/userInfo/rePassWord'
+import Good from '@/pages/Good'
 // 使用插件
 Vue.use(VueRouter)
 
@@ -59,6 +60,12 @@ const router = new VueRouter({
             name: 'search',
             path: '/search/:keyword?',
             component: Search,
+            meta: { show: true, needToken: false }
+        },
+        {
+            name: 'good',
+            path: '/good/:goodId?',
+            component: Good,
             meta: { show: true, needToken: false }
         },
         {
