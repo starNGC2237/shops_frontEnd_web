@@ -66,7 +66,6 @@
             </el-image>
         </div>
     </div>
-
 </template>
 
 <script>

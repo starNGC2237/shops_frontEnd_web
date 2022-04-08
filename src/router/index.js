@@ -25,9 +25,10 @@ import FeedBack from '@/pages/Service/FeedBack'
 import MessagePage from '@/pages/message'
 import UserInfo from '@/pages/userInfo'
 import User from '@/pages/userInfo/user'
-import Address from '@/pages/userInfo/Address'
+import UserAddress from '@/pages/userInfo/userAddress'
 import PhoneLogin from '@/pages/Service/phoneLogin'
 import ShoppingCart from '@/pages/ShoppingCart'
+import RePassWord from '@/pages/userInfo/rePassWord'
 // 使用插件
 Vue.use(VueRouter)
 
@@ -93,13 +94,18 @@ const router = new VueRouter({
             meta: { show: true, needToken: true },
             children: [
                 {
-                    path: '/userInfo/user',
+                    path: 'user',
                     component: User,
                     meta: { show: true, needToken: true }
                 },
                 {
-                    path: 'address',
-                    component: Address,
+                    path: 'rePassWord',
+                    component: RePassWord,
+                    meta: { show: true, needToken: true }
+                },
+                {
+                    path: 'userAddress',
+                    component: UserAddress,
                     meta: { show: true, needToken: true }
                 }
             ]

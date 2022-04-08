@@ -50,7 +50,12 @@ export default {
                     image: 'el-icon-s-custom'
                 },
                 {
-                    key: 'address',
+                    key: 'rePassWord',
+                    name: '修改密码',
+                    image: 'el-icon-s-check'
+                },
+                {
+                    key: 'userAddress',
                     name: '地址管理',
                     image: 'el-icon-s-data'
                 },

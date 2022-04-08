@@ -39,7 +39,7 @@ export default {
             const { userName, phone, newPassWord } = this.form
             const params = {
                 userName,
-                phone: parseInt(phone),
+                phone,
                 passWord: newPassWord
             }
             ApiUserInfo.fdPassWord(params).then(res => {
