@@ -36,7 +36,6 @@ export default {
     name: 'RecommendedTwo',
     methods: {
         toGood() {
-            console.log('1')
             this.$router.push({ path: '/good' })
         }
     }
