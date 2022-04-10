@@ -97,8 +97,6 @@ var socket = {
     send: (data, callback = null) => {
         // 开启状态直接发送
         if (socket.websock.readyState === socket.websock.OPEN) {
-            // todo
-            // socket.websock.send(JSON.stringify(data))
             socket.websock.send(data)
             if (callback) {
                 callback()
@@ -125,15 +123,9 @@ var socket = {
      */
     receive: (message) => {
         // todo
-        // var params = JSON.parse(message.data)
-        Notification.success({
-            title: '公告',
-            message: message.data
-        })
-        /*
-        *
-        if (params.messageType != 'pong') {
-            console.log('收到服务器心跳：', message.data)
+        var params = JSON.parse(message.data)
+        if (params.messageType === 'pong') {
+            console.log('收到服务器心跳：', params.message)
         }
 
         if (params == undefined) {
@@ -141,6 +133,14 @@ var socket = {
             return false
         }
 
+        if (params.messageType === '公告') {
+            Notification.success({
+                title: '公告',
+                message: params.message
+            })
+        }
+        /*
+        *
         // 以下是接收消息后的业务处理，仅供参考
 
         // 被服务器强制断开
@@ -207,8 +207,11 @@ var socket = {
                 'API-Source': 'MERCHANT' // MERCHANT  商家  CUSTOMER  顾客
             }
             * */
-            var data = 'ping'
-            socket.send(data)
+            var data = {
+                messageType: 'ping',
+                message: 'ping'
+            }
+            socket.send(JSON.stringify(data))
         }, socket.hearbeat_interval)
     },
 
