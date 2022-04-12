@@ -34,7 +34,6 @@ request.interceptors.request.use((config) => {
         }
     }
     const token = Cookie.getCookie('token')
-    // let token = Cookies.get('token');
     if (token) {
         config.headers['token'] = token
     }
@@ -49,7 +48,7 @@ request.interceptors.response.use((res) => {
 }, (error) => {
     // 失败的回调函数
     nprogress.done()
-    return Promise.reject(new Error('fail' + error))
+    return Promise.reject(new Error(error))
 })
 
 // 对外暴露

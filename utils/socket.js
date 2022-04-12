@@ -20,7 +20,6 @@ var socket = {
     hearbeat_timer: null,
     // 心跳发送频率
     hearbeat_interval: 300000,
-
     // 是否自动重连
     is_reonnect: true,
     // 重连次数
@@ -128,7 +127,7 @@ var socket = {
             console.log('收到服务器心跳：', params.message)
         }
 
-        if (params == undefined) {
+        if (message.data === undefined) {
             console.log('收到服务器空内容')
             return false
         }
