@@ -2,6 +2,7 @@
 // import Vue from 'vue'
 // import cookie from './cookie'
 import { Notification } from 'element-ui'
+import Cookie from './cookie'
 
 // 导出socket对象
 export {
@@ -39,9 +40,8 @@ var socket = {
             console.log('浏览器不支持WebSocket')
             return null
         }
-
         // 已经创建过连接不再重复创建
-        if (socket.websock) {
+        if (socket.websock?.url === 'wss://shops.starlibrary.online/wss/' + token) {
             return socket.websock
         }
 
@@ -56,14 +56,16 @@ var socket = {
             console.log('connection closed (' + e.code + ')')
             clearInterval(socket.hearbeat_interval)
             socket.socket_open = false
-            Notification({
-                type: 'error',
-                title: 'websocket通知连接已断开',
-                message: '刷新页面重新连接',
-                duration: 0
-            })
             // 需要重新连接
             if (socket.is_reonnect) {
+                if (Cookie.getCookie('token')) {
+                    Notification({
+                        type: 'error',
+                        title: 'websocket通知连接已断开',
+                        message: '刷新页面重新连接',
+                        duration: 0
+                    })
+                }
                 socket.reconnect_timer = setTimeout(() => {
                     // 超过重连次数
                     if (socket.reconnect_current > socket.reconnect_count) {
