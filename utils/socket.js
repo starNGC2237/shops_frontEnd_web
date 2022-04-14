@@ -19,7 +19,7 @@ var socket = {
     // 心跳timer
     hearbeat_timer: null,
     // 心跳发送频率
-    hearbeat_interval: 300000,
+    hearbeat_interval: 5000,
     // 是否自动重连
     is_reonnect: true,
     // 重连次数
@@ -56,7 +56,12 @@ var socket = {
             console.log('connection closed (' + e.code + ')')
             clearInterval(socket.hearbeat_interval)
             socket.socket_open = false
-
+            Notification({
+                type: 'error',
+                title: 'websocket通知连接已断开',
+                message: '刷新页面重新连接',
+                duration: 0
+            })
             // 需要重新连接
             if (socket.is_reonnect) {
                 socket.reconnect_timer = setTimeout(() => {
@@ -197,8 +202,8 @@ var socket = {
         }
 
         socket.hearbeat_timer = setInterval(() => {
-            // const token = cookie.getCookie('token')
             /*
+            * const token = cookie.getCookie('token')
             * var data = {
                 kind: 0, // 请求类型 kind 0 心跳包
                 shop_id: Vue.prototype.$shop_id(false), // 如果是商家 传当前店铺ID 否则可不传
