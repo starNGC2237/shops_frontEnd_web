@@ -15,6 +15,14 @@ module.exports = {
         // 代理服务器解决跨域
         proxy: {
             // 会把请求路径中的/api换为后面的代理服务器
+            '/api/express': {
+                // 提供数据的服务器地址
+                changeOrigin: true,
+                target: 'http://101.35.79.150:9999',
+                // 会在后面加,除非,重写去掉
+                pathRewrite: { '^/api/express': '' }
+
+            },
             '/api': {
                 // 提供数据的服务器地址
                 changeOrigin: true,

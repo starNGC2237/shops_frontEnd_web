@@ -32,11 +32,14 @@ export default {
             socket.init(Cookie.getCookie('token'))
         }
     },
+    beforeDestroy() {
+        this.$bus.$off('socketOpen')
+    },
     methods: {
         socketOpen(token) {
             // 发起连接
             if (Cookie.getCookie('token')) {
-                socket.init(Cookie.getCookie('token'))
+                socket.init(token)
             }
         }
 

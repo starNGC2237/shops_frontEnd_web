@@ -53,7 +53,7 @@ var socket = {
         // 关闭连接
         socket.websock.onclose = function(e) {
             console.log('连接已断开')
-            console.log('connection closed (' + e.code + ')')
+            console.log('连接已关闭 (' + e.code + ')')
             clearInterval(socket.hearbeat_interval)
             socket.socket_open = false
             // 需要重新连接
@@ -131,11 +131,10 @@ var socket = {
         // todo
         var params = JSON.parse(message.data)
         if (params.messageType === 'pong') {
-            console.log('收到服务器心跳：', params.message)
+            console.log('websocket：', params.message)
         }
 
         if (message.data === undefined) {
-            console.log('收到服务器空内容')
             return false
         }
 
@@ -198,7 +197,7 @@ var socket = {
      * 心跳
      */
     heartbeat: () => {
-        console.log('socket', 'ping')
+        console.log('websocket:', 'ping')
         if (socket.hearbeat_timer) {
             clearInterval(socket.hearbeat_timer)
         }
@@ -235,8 +234,7 @@ var socket = {
      * 重新连接
      */
     reconnect: () => {
-        console.log('发起重新连接', socket.reconnect_current)
-
+        console.log('发起重新连接:', socket.reconnect_current)
         if (socket.websock && socket.socket_open) {
             socket.websock.close()
         }
