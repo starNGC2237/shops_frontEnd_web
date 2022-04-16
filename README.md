@@ -1,7 +1,6 @@
 # shops_frontend_web
 
-> 技术栈：vue2 + vue-cli + vue-router + vuex + axios + normalize.css + nprogress + element-ui
-
+> 技术栈：vue2 + vue-cli + vue-router + vuex + axios（封装） + normalize.css + nprogress + element-ui + sass + jest
 ## Project setup
 
 ```
