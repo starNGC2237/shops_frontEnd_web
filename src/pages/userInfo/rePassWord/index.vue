@@ -40,7 +40,7 @@
                 </el-input>
             </el-form-item>
             <el-form-item>
-                <el-button>确认</el-button>
+                <el-button @click='rePassWordByParams'>确认</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -54,13 +54,35 @@ export default {
         return {
             loading: false,
             rules: {},
-            formReUser: {}
+            formReUser: {
+                userName: '',
+                phone: '',
+                passWord: '',
+                newPassWord: ''
+            }
         }
     },
     methods: {
         rePassWordByParams() {
             this.loading = true
-            ApiUserInfo.rePassWord().then().catch().finally(() => {
+            ApiUserInfo.rePassWord(this.formReUser).then(res => {
+                if (res.code === '200') {
+                    this.$message({
+                        type: 'success',
+                        message: res.msg
+                    })
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: res.msg
+                    })
+                }
+            }).catch(() => {
+                this.$message({
+                    type: 'error',
+                    message: '修改密码失败，网络错误'
+                })
+            }).finally(() => {
                 this.loading = false
             })
         }

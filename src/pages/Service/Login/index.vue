@@ -72,7 +72,7 @@ export default {
             }).catch(() => {
                 this.$message({
                     type: 'error',
-                    message: '网络错误'
+                    message: '登录失败，网络错误'
                 })
             }).finally(() => {
                 this.loginLoading = false
