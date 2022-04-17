@@ -1,6 +1,7 @@
 import Cookie from '../../../utils/cookie'
 import router from '../../router'
 import { socket } from '../../../utils/socket'
+import store from '@/store'
 
 const state = {
     token: Cookie.getCookie('token') || ''
@@ -13,13 +14,12 @@ const mutations = {
         Cookie.setCookie('token', token, '')
     },
     // 退出登录（清空state里的token
-    QUIT() {
-        console.log(Cookie.getCookie('token'))
+    async QUIT(state) {
         state.token = ''
         Cookie.setCookie('token', '', '')
-        console.log(Cookie.getCookie('token'))
+        await store.commit('CLEAR_ALL')
         socket.close()
-        router.push({ path: '/home' })
+        await router.push({ path: '/home' })
     }
 }
 

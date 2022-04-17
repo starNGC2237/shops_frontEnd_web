@@ -6,7 +6,8 @@ const state = {
     nickName: '',
     createTime: '',
     phone: 0,
-    role: ''
+    role: '',
+    addressList: []
 }
 
 const mutations = {
@@ -17,6 +18,7 @@ const mutations = {
         state.createTime = ''
         state.phone = 0
         state.role = ''
+        state.addressList = []
     },
     SET_USERNAME: (state, userName) => {
         state.userName = userName
@@ -35,6 +37,9 @@ const mutations = {
     },
     SET_ROLE: (state, role) => {
         state.role = role
+    },
+    SET_ADDRESSLIST: (state, addressList) => {
+        state.addressList = addressList
     }
 }
 
@@ -48,13 +53,14 @@ const actions = {
                     return reject('Verification failed, please Login again.')
                 }
                 if (data.role === '用户') {
-                    const { userName, imageUrl, nickName, createTime, phone, role } = data
+                    const { userName, imageUrl, nickName, createTime, phone, role, addressList } = data
                     commit('SET_USERNAME', userName)
                     commit('SET_IMAGEURL', imageUrl)
                     commit('SET_NICKNAME', nickName)
                     commit('SET_CREATETIME', createTime)
                     commit('SET_PHONE', phone)
                     commit('SET_ROLE', role)
+                    commit('SET_ADDRESSLIST', addressList)
                     resolve(data)
                 } else {
                     reject('权限错误')

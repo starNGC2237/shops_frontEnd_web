@@ -44,7 +44,10 @@ var socket = {
         if (socket.websock?.url === 'wss://shops.starlibrary.online/wss/' + token) {
             return socket.websock
         }
-
+        // token为""或undefined
+        if (!token) {
+            return null
+        }
         socket.websock = new WebSocket(socket.ws_url + token)
         socket.websock.onmessage = function(e) {
             socket.receive(e)
