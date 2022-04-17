@@ -33,12 +33,7 @@ module.exports = {
             },
             '/mock': {
                 target: 'http://127.0.0.1:4523'
-            },
-            '/test': {
-                target: 'http://39.98.123.211/api',
-                pathRewrite: { '^/test': '' }
             }
-
         }
     }
 }
