@@ -8,6 +8,7 @@
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Cookie from '../../utils/cookie'
 import { Message, Notification } from 'element-ui'
 import store from '../store'
@@ -148,6 +149,10 @@ const router = new VueRouter({
         }
     ]
 })
+
+router.afterEach(() => {
+    window.scrollTo(0, 0)
+})
 router.beforeEach(async(to, from, next) => {
     nprogress.start()
     const token = Cookie.getCookie('token')
@@ -199,4 +204,5 @@ router.beforeEach(async(to, from, next) => {
         }
     }
 })
+
 export default router
