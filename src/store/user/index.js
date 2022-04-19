@@ -62,6 +62,8 @@ const actions = {
                     commit('SET_ROLE', role)
                     commit('SET_ADDRESSLIST', addressList)
                     resolve(data)
+                } else if (data.role === '封禁') {
+                    reject('您的账号已被封禁，请联系管理员')
                 } else {
                     reject('权限错误')
                 }

@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <nav @click='gotoSearch'>
-                    <a v-for='c1 in categoryList.slice(11,categoryList.length)'
+                    <a v-for='c1 in categoryList.slice(10,categoryList.length)'
                        :key='c1.categoryId'>
                         <span style='cursor: pointer;' :data-categoryName="c1.categoryName" :data-category1id="c1.categoryId">{{ c1.categoryName }}</span>
                         <div class='all-show-remaining'>
@@ -186,6 +186,7 @@ export default {
                 color: black;
                 cursor: default;
                 line-height: 18px;
+                z-index: 999;
                 &:hover{
                     display: block !important;
                 }
@@ -196,7 +197,7 @@ export default {
                 display: block;
                 line-height: 100px;
                 &:hover{
-                    +.all-show-remaining{
+                    + .all-show-remaining{
                         display: block !important;
                     }
                 }

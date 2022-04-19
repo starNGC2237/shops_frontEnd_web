@@ -30,18 +30,18 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item
-                    prop='createTime'
-                    label="创建时间">
-                    <el-input
-                        v-model="formUser.createTime"
-                        disabled>
-                    </el-input>
-                </el-form-item>
-                <el-form-item
                     prop='phone'
                     label="手机号">
                     <el-input
                         v-model="formUser.phone"
+                        disabled>
+                    </el-input>
+                </el-form-item>
+                <el-form-item
+                    prop='createTime'
+                    label="创建时间">
+                    <el-input
+                        v-model="formUser.createTime"
                         disabled>
                     </el-input>
                 </el-form-item>
@@ -54,7 +54,7 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button @click='submitForm("user_form")'>确认</el-button>
+                    <el-button @click='submitForm("user_form")'>确认修改</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -64,6 +64,7 @@
                 :src="formUser.imageUrl"
                 fit="fill">
             </el-image>
+            <el-link>修改头像</el-link>
         </div>
     </div>
 </template>
@@ -153,7 +154,11 @@ export default {
         >.user_headPic{
             width: 30%;
             display: flex;
-            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            & > :not(:last-child){
+                margin-bottom: 1rem;
+            }
         }
     }
 </style>
