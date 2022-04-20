@@ -10,13 +10,17 @@
     <div class='brick_box'>
         <div class='container'>
             <div class='container-top'>
-                <h2>数据</h2>
+                <h2>手机</h2>
                 <div class='watchMore'>查看更多<i class="el-icon-arrow-right rem_margin"></i></div>
             </div>
             <div class='container-content'>
-                <el-card shadow="hover" :body-style='{padding: 0}'>
-                    <img src='./1.jpg' alt=''>
+                <!--
+                <el-card shadow="hover" :body-style='{padding: 0}' style='display: flex;align-items: center;'>
+                    <img src='./1.jpg' style='width: 100%' alt=''>
                 </el-card>
+                -->
+                <RecommendedTwo>
+                </RecommendedTwo>
                 <RecommendedTwo>
                 </RecommendedTwo>
                 <RecommendedTwo>

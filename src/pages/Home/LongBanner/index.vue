@@ -9,9 +9,9 @@
 <template>
     <div class='long_bar'>
         <div class='container'>
-            <router-link to='/search'>
+            <router-link to='/search/K40'>
                 <img
-                    src='https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/88e35cffc82cd98cd53172460067af17.jpg?thumb=1&w=1839&h=180&f=webp&q=90'
+                    src='https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0e2b43800d3e1ef40470ac04b3e0140b.jpg'
                     alt=''
                 />
             </router-link>

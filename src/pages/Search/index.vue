@@ -59,6 +59,7 @@
 
 <script>
 import TypeNav from '@/components/TypeNav'
+import ApiSearch from '@/api/search/search'
 export default {
     name: 'Search',
     components: {
@@ -72,11 +73,8 @@ export default {
                 category3Id: '',
                 categoryName: '',
                 keyword: '',
-                order: '',
                 pageNo: 1,
-                pageSize: 10,
-                props: [],
-                trademark: ''
+                pageSize: 10
             }
         }
     },
@@ -93,6 +91,9 @@ export default {
             this.searchParams.keyword = undefined
             this.$refs.typenav.clear()
             this.$router.push({ name: 'search', query: this.$route.query })
+        },
+        getData() {
+            ApiSearch.searchGood(this.searchParams).then().catch().finally()
         }
     },
     beforeMount() {
@@ -102,7 +103,7 @@ export default {
         // 监听路由信息
         $route() {
             Object.assign(this.searchParams, this.$route.query, this.$route.params)
-            // this.getData()
+            this.getData()
             this.searchParams.category1Id = ''
             this.searchParams.category2Id = ''
             this.searchParams.category3Id = ''

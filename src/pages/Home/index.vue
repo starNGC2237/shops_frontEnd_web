@@ -12,6 +12,7 @@
         <SwiperWrapper></SwiperWrapper>
         <LongBanner></LongBanner>
         <BrickBox></BrickBox>
+        <BrickBox></BrickBox>
     </div>
 </template>
 
