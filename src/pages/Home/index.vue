@@ -11,8 +11,7 @@
         <TypeNav></TypeNav>
         <SwiperWrapper></SwiperWrapper>
         <LongBanner></LongBanner>
-        <BrickBox></BrickBox>
-        <BrickBox></BrickBox>
+        <BrickBox v-for='item in $store.state.home.categoryRecommends' :key='item.categoryId' :data='item'></BrickBox>
     </div>
 </template>
 

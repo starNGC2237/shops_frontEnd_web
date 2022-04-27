@@ -7,7 +7,8 @@
  * @FilePath: \shops_frontend_web\src\pages\Search\index.vue
 -->
 <template>
-    <div class='search'>
+    <div class='search'
+         v-loading.fullscreen.lock="loading">
         <TypeNav ref='typenav'></TypeNav>
         <div class='selectNav'>
             全部结果：
@@ -27,17 +28,25 @@
         </div>
         <div class='search_content'>
             <div class='items'>
-                <div class='item' v-for='(item,key) in 13' :key='key'>
+                <div v-if='goods.length === 0'
+                     style='width: 100%;height:300px;display: flex;align-items: center;justify-content: center;'>
+                    <span>没有数据</span>
+                </div>
+                <div class='item'
+                     style='cursor: pointer;'
+                     v-for='(item) in goods'
+                     :key='item.goodId'
+                     @click='gotoGoodInfo(item.goodId)'>
                     <el-card shadow="hover"  >
                         <div class='recommended-img'>
-                            <img src='https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e870129c5c374088bf7cc46be0b7ace2.jpg?thumb=1&w=300&h=300&f=webp&q=90' alt=''>
+                            <img :src='item.imageUrl' alt=''>
                         </div>
                         <h3 class='title'>
-                            Xiaomi 12 Pro
+                            {{ item.title }}
                         </h3>
-                        <p class='desc'>全新骁龙8｜2K AMOLED屏幕</p>
+                        <p class='desc'>{{item.content}}</p>
                         <p class='price'>
-                            <span class="num">4699</span>
+                            <span class="num">{{item.price}}</span>
                             元
                             <span>起</span>
                         </p>
@@ -49,7 +58,7 @@
                 <el-pagination
                     background
                     layout="prev, pager, next"
-                    :total="1000">
+                    :total="goods.length">
                 </el-pagination>
             </div>
 
@@ -67,6 +76,7 @@ export default {
     },
     data() {
         return {
+            loading: false,
             searchParams: {
                 category1Id: '',
                 category2Id: '',
@@ -75,7 +85,8 @@ export default {
                 keyword: '',
                 pageNo: 1,
                 pageSize: 10
-            }
+            },
+            goods: []
         }
     },
     methods: {
@@ -93,11 +104,40 @@ export default {
             this.$router.push({ name: 'search', query: this.$route.query })
         },
         getData() {
-            ApiSearch.searchGood(this.searchParams).then().catch().finally()
+            this.loading = true
+            const data = {
+                category1Id: this.searchParams.category1Id || undefined,
+                category2Id: this.searchParams.category2Id || undefined,
+                category3Id: this.searchParams.category3Id || undefined,
+                content: this.searchParams.keyword || undefined
+            }
+            ApiSearch.searchGood(data).then(res => {
+                if (res.code === '200') {
+                    this.goods = res.data
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: res.msg
+                    })
+                }
+            }).catch(() => {
+                this.$message({
+                    type: 'error',
+                    message: '获取商品信息失败，网络错误'
+                })
+            }).finally(() => {
+                this.loading = false
+            })
+        },
+        gotoGoodInfo(goodId) {
+            this.$router.push({ path: `/good/${goodId}` })
         }
     },
     beforeMount() {
         Object.assign(this.searchParams, this.$route.query, this.$route.params)
+    },
+    mounted() {
+        this.getData()
     },
     watch: {
         // 监听路由信息

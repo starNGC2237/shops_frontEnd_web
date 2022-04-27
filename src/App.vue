@@ -28,6 +28,7 @@ export default {
     mounted() {
         this.$bus.$on('socketOpen', this.socketOpen)
         this.$store.dispatch('categoryList')
+        this.$store.dispatch('queryRecommends')
         if (Cookie.getCookie('token')) {
             socket.init(Cookie.getCookie('token'))
         }

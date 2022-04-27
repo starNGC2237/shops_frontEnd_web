@@ -12,7 +12,7 @@
             </el-card>
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
-                    <span style='font-size: 1.8rem'>公告消息</span>
+                    <span style='font-size: 1.8rem'>通知消息</span>
                     <el-button style="float: right; padding: 3px 0" type="text">已读</el-button>
                 </div>
                 <div class="text item">

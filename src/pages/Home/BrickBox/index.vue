@@ -10,40 +10,58 @@
     <div class='brick_box'>
         <div class='container'>
             <div class='container-top'>
-                <h2>手机</h2>
-                <div class='watchMore'>查看更多<i class="el-icon-arrow-right rem_margin"></i></div>
+                <h2>{{ data.categoryName }}</h2>
+                <div class='watchMore' @click='gotoSearch(data)'>查看更多<i class="el-icon-arrow-right rem_margin"></i></div>
             </div>
             <div class='container-content'>
-                <!--
-                <el-card shadow="hover" :body-style='{padding: 0}' style='display: flex;align-items: center;'>
-                    <img src='./1.jpg' style='width: 100%' alt=''>
-                </el-card>
-                -->
-                <RecommendedTwo>
-                </RecommendedTwo>
-                <RecommendedTwo>
-                </RecommendedTwo>
-                <RecommendedTwo>
-                </RecommendedTwo>
-                <RecommendedTwo>
-                </RecommendedTwo>
-                <RecommendedTwo>
-                </RecommendedTwo>
+                <RecommendedOne v-for='(item,index) in currentDate' :key='index' :item='item'>
+                </RecommendedOne>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import RecommendedTwo from '@/pages/Home/BrickBox/components/RecommendedTwo'
+import RecommendedOne from '@/pages/Home/BrickBox/components/RecommendedOne'
+import ApiSearch from '@/api/search/search'
 export default {
     name: 'BrickBok',
+    props: ['data'],
     components: {
-        RecommendedTwo
+        RecommendedOne
     },
     data() {
         return {
-            currentDate: '1'
+            currentDate: []
+        }
+    },
+    mounted() {
+        const data = {
+            category1Id: this.data.categoryId
+        }
+        ApiSearch.searchGood(data).then(res => {
+            if (res.code === '200') {
+                this.currentDate = res.data || []
+            } else {
+                this.$message({
+                    type: 'error',
+                    message: res.msg
+                })
+            }
+            while (this.currentDate.length < 5) {
+                this.currentDate.push({})
+            }
+        }).catch(() => {
+            this.$message({
+                type: 'error',
+                message: '获取商品信息失败，网络错误'
+            })
+        })
+    },
+    methods: {
+        gotoSearch(data) {
+            const location = { name: 'search', query: { category1Id: data.categoryId, categoryName: data.categoryName }}
+            this.$router.push(location)
         }
     }
 }
@@ -92,7 +110,6 @@ img{
         >.container-content{
             display: flex;
             justify-content: space-between;
-            height: 614px;
             > div{
                 display: flex;
                 width: 234px;

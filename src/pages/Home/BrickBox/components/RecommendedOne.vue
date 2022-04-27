@@ -1,29 +1,15 @@
 <template>
     <div class='recommended-two'>
-        <el-card @click.native='toGood' shadow="hover" :body-style='{padding:"20px 0"}'>
+        <el-card @click.native='toGood(item)' shadow="hover" :body-style='{padding:"20px 0"}'>
             <div class='recommended-img'>
-                <img src='https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e870129c5c374088bf7cc46be0b7ace2.jpg?thumb=1&w=300&h=300&f=webp&q=90' alt=''>
+                <img v-if='JSON.stringify(item) !== "{}"' :src='item.imageUrl' alt=''>
             </div>
-            <h3 class='title'>
-                Xiaomi 12 Pro
+            <h3 class='title' v-if='JSON.stringify(item) !== "{}"'>
+                {{ item.goodName }}
             </h3>
-            <p class='desc'>全新骁龙8｜2K AMOLED屏幕</p>
-            <p class='price'>
-                <span class="num">4699</span>
-                元
-                <span>起</span>
-            </p>
-        </el-card>
-        <el-card @click.native='toGood' shadow="hover" :body-style='{padding:"20px 0"}'>
-            <div class='recommended-img'>
-                <img src='https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e870129c5c374088bf7cc46be0b7ace2.jpg?thumb=1&w=300&h=300&f=webp&q=90' alt=''>
-            </div>
-            <h3 class='title'>
-                Xiaomi 12 Pro
-            </h3>
-            <p class='desc'>全新骁龙8｜2K AMOLED屏幕</p>
-            <p class='price'>
-                <span class="num">4699</span>
+            <p class='desc' v-if='JSON.stringify(item) !== "{}"'>{{ item.title }}</p>
+            <p class='price' v-if='JSON.stringify(item) !== "{}"'>
+                <span class="num">{{item.price}}</span>
                 元
                 <span>起</span>
             </p>
@@ -34,9 +20,10 @@
 <script>
 export default {
     name: 'RecommendedTwo',
+    props: ['item'],
     methods: {
-        toGood() {
-            this.$router.push({ path: '/good' })
+        toGood(item) {
+            this.$router.push({ path: `/good/${item.goodId}` })
         }
     }
 }

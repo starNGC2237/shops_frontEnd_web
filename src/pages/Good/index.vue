@@ -5,19 +5,19 @@
                 <el-image
                     style='width: 300px;height: 300px;margin-top: 3rem;'
                     fit="fit"
-                    src='https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'>
+                    :src='good.imageUrl'>
                 </el-image>
             </div>
             <div class='good_info'>
-                <h2>商品名：A</h2>
-                <p>title：111</p>
-                <p>content：Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam asperiores, cumque distinctio dolores eaque, esse, ex id impedit maiores qui quos sequi tempora unde voluptas? Autem eos mollitia optio?</p>
-                <p>一级分类：手机</p>
-                <p>二级分类：手机通讯</p>
-                <p>三级分类：手机</p>
-                <p>价格：1999</p>
-                <p>商店内数量：1</p>
-                <p>仓库内数量：200</p>
+                <h1>{{good.goodName}}</h1>
+                <p>标题：{{good.title}}</p>
+                <p>内容：{{ good.content}}</p>
+                <p>一级分类：{{ good.category1Name}}</p>
+                <p>二级分类：{{ good.category2Name}}</p>
+                <p>三级分类：{{ good.category3Name}}</p>
+                <p>价格：{{ good.price}}</p>
+                <p>商店内数量：{{shopNumber}}</p>
+                <p>仓库内数量：{{storeNumber}}</p>
                 <div style='margin-top: 1rem;'>
                     <el-button type='primary'>立即购买</el-button>
                     <el-button>加入购物车</el-button>
@@ -29,8 +29,56 @@
 </template>
 
 <script>
+import ApiSearch from '@/api/search/search'
+
 export default {
-    name: 'good'
+    name: 'good',
+    data() {
+        return {
+            good: {}
+        }
+    },
+    mounted() {
+        const data = {
+            goodId: this.$route.params.goodId
+        }
+        ApiSearch.searchGood(data).then(res => {
+            if (res.code === '200') {
+                this.good = res.data[0] || {}
+            } else {
+                this.$message({
+                    type: 'error',
+                    message: res.msg
+                })
+            }
+        }).catch(() => {
+            this.$message({
+                type: 'error',
+                message: '获取商品信息失败，网络错误'
+            })
+        }).finally(() => {
+            this.loading = false
+        })
+    },
+    computed: {
+        shopNumber() {
+            return this.good.numberList?.filter((item) => {
+                return item.role === '商家'
+            })[0].number || 0
+        },
+        storeNumber() {
+            let number = 0
+            this.good.numberList?.forEach((item) => {
+                if (item.role === '仓库') {
+                    number = number + item.number
+                }
+            })
+            return number
+        }
+    },
+    methods: {
+
+    }
 }
 </script>
 
