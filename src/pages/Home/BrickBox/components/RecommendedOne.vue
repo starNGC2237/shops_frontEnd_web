@@ -23,7 +23,9 @@ export default {
     props: ['item'],
     methods: {
         toGood(item) {
-            this.$router.push({ path: `/good/${item.goodId}` })
+            if (item.goodId) {
+                this.$router.push({ path: `/good/${item.goodId}` })
+            }
         }
     }
 }
