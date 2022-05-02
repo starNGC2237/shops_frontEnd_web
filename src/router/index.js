@@ -163,7 +163,7 @@ router.afterEach(() => {
 router.beforeEach(async(to, from, next) => {
     nprogress.start()
     const token = Cookie.getCookie('token')
-    console.log('token:' + token)
+    // console.log('token:' + token)
     if (token) { // 如果已经登录，那我不干涉你，让你随便访问
         if (to.path === '/login') {
             // if is logged in, redirect to the home page
