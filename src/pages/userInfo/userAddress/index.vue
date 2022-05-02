@@ -1,7 +1,10 @@
 <template>
     <div class='userAddress'>
         <h1>地址管理</h1>
-        <el-button style='width: fit-content;margin-bottom: 1rem;' type='primacy'>新建地址</el-button>
+        <el-button
+            style='width: fit-content;margin-bottom: 1rem;'
+            type='primacy'
+            @click='dialogVisible = true'>新建地址</el-button>
         <el-table
             border
             :data='tableData'>
@@ -9,7 +12,7 @@
                 label='是否正在使用'
                 align='center'>
                 <template slot-scope='scope'>
-                    <el-tag>{{!!scope.row.isUsing?'正在使用':'未使用'}}</el-tag>
+                    <el-tag :type="!!scope.row.isUsing?'':'warning'" >{{!!scope.row.isUsing?'正在使用':'未使用'}}</el-tag>
                 </template>
             </el-table-column>
             <el-table-column
@@ -36,34 +39,105 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-dialog
+            title="添加地址"
+            :visible.sync="dialogVisible"
+            width="40%"
+            @close="dialogVisible = false;"
+            @closed="clearForm"
+        >
+            <el-form label-position="top">
+                <el-form-item label="请选择省">
+                    <el-select v-model='address.sheng'>
+                        <el-option
+                            v-for="item in areas['0']"
+                            :key="item.area_id"
+                            :label="item.name"
+                            :value="item.area_id"
+                        />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="请选择市">
+                    <el-select v-model='address.shi'>
+                        <el-option
+                            v-for="item in (areas[address.sheng] || [])"
+                            :key="item.area_id"
+                            :label="item.name"
+                            :value="item.area_id"
+                        />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="请选择区">
+                    <el-select v-model='address.qu' placeholder='请选择，若无可不填'>
+                        <el-option
+                            v-for="item in (areas[address.shi] || [])"
+                            :key="item.area_id"
+                            :label="item.name"
+                            :value="item.area_id"
+                        />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label='请输入详细地址'>
+                    <el-input v-model='address.info'></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click='commitAddAddress'>确 定</el-button>
+      </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
+import ApiAddress from '@/api/userInfo/address'
 export default {
     name: 'Address',
     data() {
         return {
-            tableData: [
-                {
-                    'addressId': 1,
-                    'userName': '1111',
-                    'provinceName': '1',
-                    'cityName': '1',
-                    'districtName': '1',
-                    'addressInfo': '1',
-                    'isUsing': 1
-                },
-                {
-                    'addressId': 2,
-                    'userName': '1111',
-                    'provinceName': '2',
-                    'cityName': '2',
-                    'districtName': '2',
-                    'addressInfo': '2',
-                    'isUsing': 0
+            tableData: this.$store.state.user.addressList || [],
+            dialogVisible: false,
+            address: {
+                sheng: '',
+                shi: '',
+                qu: '',
+                info: ''
+            },
+            areas: {}
+        }
+    },
+    mounted() {
+        this.getAreas()
+    },
+    methods: {
+        getAreas() {
+            ApiAddress.getAllAreaMap().then(res => {
+                if (res.code === '200') {
+                    this.areas = res.data
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: res.msg
+                    })
                 }
-            ]
+            })
+        },
+        // todo
+        commitAddAddress() {
+            const data = {
+                addressInfo: this.address.info,
+                provinceName: this.areas['0'].filter((item) => {
+                    return item.area_id === this.address.sheng
+                })[0].name || '',
+                cityName: this.areas[this.address.sheng].filter((item) => {
+                    return item.area_id === this.address.shi
+                })[0].name || '',
+                districtName: typeof this.address.qu === 'string' || this.areas[this.address.shi].filter((item) => {
+                    return item.area_id === this.address.qu
+                })[0].name,
+                isUsing: 0
+            }
+            ApiAddress.addAddress(data)
         }
     }
 }

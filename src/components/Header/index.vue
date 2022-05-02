@@ -16,7 +16,7 @@
                 <span v-if='token===""'><router-link to='/service/register'>注册</router-link></span>
             </div>
             <div class='functions'>
-                <span><a href='#'>我的订单</a></span>
+                <span><router-link to='/order'>我的订单</router-link></span>
                 <span class='welcome_split'>|</span>
                 <span><router-link to='/shoppingcart'>我的购物车</router-link></span>
                 <span class='welcome_split'>|</span>

@@ -1,6 +1,7 @@
 <template>
     <div class='shopping_cart'>
         <div class='shopping_cart_container'>
+            <el-page-header class='header' @back="goBack" content="我的购物车"></el-page-header>
             <el-table
                 :data='tableData'
                 @selection-change="handleSelectionChange">
@@ -74,6 +75,9 @@ export default {
     methods: {
         handleSelectionChange(val) {
             this.multipleSelection = val
+        },
+        goBack() {
+            this.$router.push({ path: '/home' })
         }
     }
 }
@@ -90,12 +94,23 @@ export default {
             align-items: center;
             width: 1226px;
             padding: 1rem;
+            div:not(:last-child){
+                margin-bottom: 1.5rem;
+            }
+            >.header{
+                width: 100%;
+                height: 5rem;
+                background-color: white;
+                display: flex;
+                align-items: center;
+                padding: 1rem;
+                box-sizing: border-box;
+            }
             >.settle{
                 display: flex;
                 width: 100%;
                 height: 4.8rem;
                 background-color: white;
-                margin-top: 1rem;
                 box-sizing: border-box;
                 justify-content: space-between;
                 >.settle_selected{

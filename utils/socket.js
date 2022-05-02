@@ -150,7 +150,6 @@ var socket = {
         /*
         *
         // 以下是接收消息后的业务处理，仅供参考
-
         // 被服务器强制断开
         if (params.kind != undefined && params.kind == 110) {
             socket.socket_open = false

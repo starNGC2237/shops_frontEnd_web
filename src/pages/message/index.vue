@@ -1,6 +1,7 @@
 <template>
     <div class='message'>
         <div class='message-container'>
+            <el-page-header class='header' @back="goBack" content="我的通知"></el-page-header>
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
                     <span style='font-size: 1.8rem'>公告消息</span>
@@ -26,7 +27,12 @@
 
 <script>
 export default {
-    name: 'message'
+    name: 'message',
+    methods: {
+        goBack() {
+            this.$router.push({ path: '/home' })
+        }
+    }
 }
 </script>
 
@@ -42,7 +48,16 @@ export default {
         width: 1226px;
         padding: 1rem;
         div:not(:last-child){
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        >.header{
+            width: 100%;
+            height: 5rem;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            box-sizing: border-box;
         }
     }
 }
