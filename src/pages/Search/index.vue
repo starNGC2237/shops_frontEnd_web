@@ -7,8 +7,9 @@
  * @FilePath: \shops_frontend_web\src\pages\Search\index.vue
 -->
 <template>
-    <div class='search'
-         v-loading.fullscreen.lock="loading">
+    <div
+        class='search'
+        v-loading.fullscreen.lock="loading">
         <TypeNav ref='typenav'></TypeNav>
         <div class='selectNav'>
             全部结果：

@@ -3,42 +3,55 @@
         <div class='shopping_cart_container'>
             <el-page-header class='header' @back="goBack" content="我的购物车"></el-page-header>
             <el-table
+                v-loading='loading'
                 :data='tableData'
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
-                    width='80'>
+                    width='100'>
                 </el-table-column>
                 <el-table-column
+                    width='150'
                     align='center'
-                    prop='name'
+                    prop='orderName'
+                    label='订单名'>
+                </el-table-column>
+                <el-table-column
+                    prop='goods[0].goodName'
                     label='商品名称'>
                 </el-table-column>
                 <el-table-column
                     align='center'
                     width='100'
-                    prop='one'
+                    prop='goods[0].price'
                     label='单价'>
                 </el-table-column>
                 <el-table-column
                     width='200'
                     align='center'
-                    prop='numbers'
+                    prop='goods[0].number'
                     label='数量'>
                 </el-table-column>
                 <el-table-column
-                    width='150'
                     align='center'
                     label='小计'>
                     <template slot-scope='scope'>
-                        {{scope.row.numbers * scope.row.one}}
+                        {{(scope.row.goods[0].number * scope.row.goods[0].price).toFixed(10)}}
                     </template>
                 </el-table-column>
                 <el-table-column
                     align='center'
                     width='100'
                     label='操作'>
-                    <el-button type="danger" size='mini' icon="el-icon-delete" circle></el-button>
+                    <template slot-scope='scope'>
+                        <el-button
+                            type="danger"
+                            size='mini'
+                            icon="el-icon-delete"
+                            circle
+                            @click='deleteOrderId(scope.row.orderId)'>
+                        </el-button>
+                    </template>
                 </el-table-column>
             </el-table>
             <div class='settle'>
@@ -57,20 +70,19 @@
 </template>
 
 <script>
+import ApiShoppingCart from '@/api/shoppingCart/shoppingCart'
 export default {
     name: 'ShoppingCart',
     data() {
         return {
             checked: false,
-            tableData: [
-                {
-                    one: '2016',
-                    name: 'K40',
-                    numbers: 1
-                }
-            ],
+            loading: false,
+            tableData: [],
             multipleSelection: []
         }
+    },
+    mounted() {
+        this.getShoppingCartOrder()
     },
     methods: {
         handleSelectionChange(val) {
@@ -78,6 +90,41 @@ export default {
         },
         goBack() {
             this.$router.push({ path: '/home' })
+        },
+        getShoppingCartOrder() {
+            this.loading = true
+            ApiShoppingCart.allOrder(0).then(res => {
+                this.tableData = res.data
+            }).catch(() => {
+                this.$message({
+                    type: 'error',
+                    message: '获取购物车信息失败，网络错误'
+                })
+            }).finally(() => {
+                this.loading = false
+            })
+        },
+        deleteOrderId(orderId) {
+            ApiShoppingCart.deleteCar(orderId).then(res => {
+                if (res.code === '200') {
+                    this.$message({
+                        type: 'success',
+                        message: res.msg
+                    })
+                } else {
+                    this.$message({
+                        type: 'error',
+                        message: res.msg
+                    })
+                }
+            }).catch(() => {
+                this.$message({
+                    type: 'error',
+                    message: '删除订单中商品失败，网络错误'
+                })
+            }).finally(() => {
+                this.getShoppingCartOrder()
+            })
         }
     }
 }
@@ -94,10 +141,10 @@ export default {
             align-items: center;
             width: 1226px;
             padding: 1rem;
-            div:not(:last-child){
+            > div:not(:last-child){
                 margin-bottom: 1.5rem;
             }
-            >.header{
+            > .header{
                 width: 100%;
                 height: 5rem;
                 background-color: white;
@@ -106,7 +153,7 @@ export default {
                 padding: 1rem;
                 box-sizing: border-box;
             }
-            >.settle{
+            > .settle{
                 display: flex;
                 width: 100%;
                 height: 4.8rem;

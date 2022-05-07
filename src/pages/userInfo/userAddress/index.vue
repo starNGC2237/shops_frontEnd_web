@@ -35,7 +35,12 @@
                 label='操作'
                 align='center'>
                 <template slot-scope='scope'>
-                    <el-button type='text' :disabled='!!scope.row.isUsing'>{{!!scope.row.isUsing?'已使用':'使用'}}</el-button>
+                    <el-button
+                        type='text'
+                        @click='useAddress(scope.row.addressId)'
+                        :disabled='!!scope.row.isUsing'>
+                        {{!!scope.row.isUsing?'已使用':'使用'}}
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -91,6 +96,7 @@
 
 <script>
 import ApiAddress from '@/api/userInfo/address'
+import store from '@/store'
 export default {
     name: 'Address',
     data() {
@@ -122,7 +128,18 @@ export default {
                 }
             })
         },
-        // todo
+        useAddress(addressId) {
+            ApiAddress.useAddress(addressId).then(res => {
+                this.showMsg(res)
+            }).catch(() => {
+                this.$message({
+                    type: 'error',
+                    message: '激活或关闭失败，网络错误！'
+                })
+            }).finally(() => {
+                this.updateInfo()
+            })
+        },
         commitAddAddress() {
             const data = {
                 addressInfo: this.address.info,
@@ -137,7 +154,42 @@ export default {
                 })[0].name,
                 isUsing: 0
             }
-            ApiAddress.addAddress(data)
+            ApiAddress.addAddress(data).then(res => {
+                this.showMsg(res)
+            }).catch(() => {
+                this.$message({
+                    type: 'error',
+                    message: '添加地址失败，网络错误！'
+                })
+            }).finally(() => {
+                this.updateInfo()
+            })
+            this.dialogVisible = false
+        },
+        async updateInfo() {
+            await store.dispatch('getInfo')
+            this.tableData = this.$store.state.user.addressList
+        },
+        clearForm() {
+            this.address = {
+                sheng: '',
+                shi: '',
+                qu: '',
+                info: ''
+            }
+        },
+        showMsg(res) {
+            if (res.code === '200') {
+                this.$message({
+                    type: 'success',
+                    message: res.msg
+                })
+            } else {
+                this.$message({
+                    type: 'error',
+                    message: res.msg
+                })
+            }
         }
     }
 }

@@ -12,8 +12,13 @@ function getAllAreaMap() {
 function addAddress(params) {
     return request.post('/user/addAddress', params, { type: 'json' })
 }
+// 地址辅助接口(Map)
+function useAddress(addressId) {
+    return request.get('/user/useAddress', { params: { addressId }})
+}
 export default {
     getAllArea,
     getAllAreaMap,
-    addAddress
+    addAddress,
+    useAddress
 }

@@ -74,7 +74,7 @@ const router = new VueRouter({
             name: 'order',
             path: '/order',
             component: Order,
-            meta: { show: true, needToken: false }
+            meta: { show: true, needToken: true }
         },
         {
             path: '/service',

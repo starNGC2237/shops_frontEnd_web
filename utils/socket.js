@@ -1,6 +1,7 @@
 // 在Vue中使用，不需要可以去除以下引用
 // import Vue from 'vue'
 // import cookie from './cookie'
+import store from '../src/store'
 import { Notification } from 'element-ui'
 import Cookie from './cookie'
 
@@ -55,7 +56,6 @@ var socket = {
 
         // 关闭连接
         socket.websock.onclose = function(e) {
-            console.log('连接已断开')
             console.log('连接已关闭 (' + e.code + ')')
             clearInterval(socket.hearbeat_interval)
             socket.socket_open = false
@@ -141,10 +141,21 @@ var socket = {
             return false
         }
 
-        if (params.messageType === '公告') {
+        if (params.messageType === '公告信息') {
+            store.commit('ANNOUNCEMENTS', params.message)
+            params.message.forEach((item) => {
+                setTimeout(() => {
+                    Notification.success({
+                        title: '公告信息：' + item.title,
+                        message: item.content
+                    })
+                }, 0)
+            })
+        }
+        if (params.messageType === '发货信息') {
             Notification.success({
-                title: '公告',
-                message: params.message
+                title: '发货信息：' + params.message.title,
+                message: params.message.content
             })
         }
         /*
