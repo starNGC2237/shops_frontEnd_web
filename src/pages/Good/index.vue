@@ -80,9 +80,13 @@ export default {
     },
     computed: {
         shopNumber() {
-            return this.good.numberList?.filter((item) => {
-                return item.role === '商家'
-            })[0].number || 0
+            if (this.good.numberList?.length === 0) {
+                return 0
+            } else {
+                return this.good.numberList?.filter((item) => {
+                    return item.role === '商家'
+                })[0].number || 0
+            }
         },
         storeNumber() {
             let number = 0

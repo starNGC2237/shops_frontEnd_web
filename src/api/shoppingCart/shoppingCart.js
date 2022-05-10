@@ -7,7 +7,7 @@ function addCar(goodId) {
 }
 // 直接购买
 function deliver(params) {
-    return request.post('/order/submitOrder', params, { type: 'json' })
+    return request.post('/order/directSubmitOrder', params, { type: 'json' })
 }
 // 查看订单
 function allOrder(orderStatus) {
