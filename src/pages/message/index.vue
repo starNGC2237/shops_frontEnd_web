@@ -24,7 +24,7 @@
                     <el-button style="float: right; padding: 3px 0" type="text">已读</el-button>
                 </div>
                 <div class="text item">
-                    列表内容{{item.toString()}}
+                    {{item.content}}
                 </div>
             </el-card>
         </div>

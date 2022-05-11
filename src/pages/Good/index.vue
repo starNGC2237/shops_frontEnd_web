@@ -43,6 +43,7 @@
 <script>
 import ApiSearch from '@/api/search/search'
 import ApiShoppingCart from '@/api/shoppingCart/shoppingCart'
+import ApiOrder from '@/api/order/order'
 import cookie from '../../../utils/cookie'
 import { Message } from 'element-ui'
 export default {
@@ -99,8 +100,12 @@ export default {
         }
     },
     methods: {
+        // todo
         addToCar(goodId) {
-            this.loading = true
+            ApiOrder.queryOrderName().then(res => {
+                // todo
+                /*
+                * this.loading = true
             ApiShoppingCart.addCar(goodId).then((res) => {
                 this.showMsg(res)
             }).catch(() => {
@@ -111,6 +116,8 @@ export default {
             }).finally(() => {
                 this.loading = false
             })
+                * */
+            }).catch().finally()
         },
         isCarry() {
             this.dialogVisible = false

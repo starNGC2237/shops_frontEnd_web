@@ -149,7 +149,7 @@ export default {
                 cityName: this.areas[this.address.sheng].filter((item) => {
                     return item.area_id === this.address.shi
                 })[0].name || '',
-                districtName: typeof this.address.qu === 'string' || this.areas[this.address.shi].filter((item) => {
+                districtName: typeof this.address.qu === 'string' ? '' : this.areas[this.address.shi].filter((item) => {
                     return item.area_id === this.address.qu
                 })[0].name,
                 isUsing: 0

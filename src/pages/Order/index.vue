@@ -2,40 +2,16 @@
     <div class='order'>
         <div class='order_container'>
             <el-page-header class='header' @back="goBack" content="我的订单"></el-page-header>
-            <el-table :data='tableData'>
-                <el-table-column width='100'>
-                    <template slot-scope='scope'>
-                        <el-tag>{{!!scope.row.isCarry?'自提':'发货'}}</el-tag>
+            <el-table :data='orders' v-loading='loading'>
+                <el-table-column type="expand" width='100px'>
+                    <template slot-scope="scope">
+                        <ShoppingCartExpand :props='scope.row.goodList'></ShoppingCartExpand>
                     </template>
                 </el-table-column>
                 <el-table-column
-                    width='150'
                     align='center'
                     prop='orderName'
                     label='订单名'>
-                </el-table-column>
-                <el-table-column
-                    prop='goods[0].goodName'
-                    label='商品名称'>
-                </el-table-column>
-                <el-table-column
-                    align='center'
-                    width='100'
-                    prop='goods[0].price'
-                    label='单价'>
-                </el-table-column>
-                <el-table-column
-                    width='200'
-                    align='center'
-                    prop='goods[0].number'
-                    label='数量'>
-                </el-table-column>
-                <el-table-column
-                    align='center'
-                    label='小计'>
-                    <template slot-scope='scope'>
-                        {{(scope.row.goods[0].number * scope.row.goods[0].price).toFixed(10)}}
-                    </template>
                 </el-table-column>
             </el-table>
         </div>
@@ -43,12 +19,18 @@
 </template>
 
 <script>
+import ShoppingCartExpand from '@/pages/ShoppingCart/ShoppingCartExpand'
 import ApiOrder from '@/api/order/order'
 export default {
     name: 'Order',
+    components: {
+        ShoppingCartExpand
+    },
     data() {
         return {
-            tableData: []
+            orders: [],
+            tableData: [],
+            loading: false
         }
     },
     mounted() {
@@ -59,9 +41,32 @@ export default {
             this.$router.push({ path: '/home' })
         },
         getOrder() {
-            ApiOrder.allOrder(1).then(res => {
-                this.tableData = res.data
-            }).catch().finally()
+            this.loading = true
+            const haveCommit = ApiOrder.allOrder(1)
+            const haveAgree = ApiOrder.allOrder(2)
+            const haveDone = ApiOrder.allOrder(3)
+            Promise.all([haveCommit, haveAgree, haveDone]).then(res => {
+                this.tableData = res[0].data
+                this.tableData = this.tableData.concat(res[1].data)
+                this.tableData = this.tableData.concat(res[2].data)
+                this.tableData.forEach(item => {
+                    if (item.goods.length === 1) {
+                        item.goods = item.goods[0]
+                    }
+                    item.number = item.goods.number
+                    if (this.orders.some(itemO => itemO.orderName === item.orderName)) {
+                        this.orders.forEach(itemO => {
+                            if (itemO.orderName === item.orderName) {
+                                itemO.goodList.push(item)
+                            }
+                        })
+                    } else {
+                        this.orders.push({ orderName: item.orderName, goodList: [item] })
+                    }
+                })
+            }).catch().finally(() => {
+                this.loading = false
+            })
         }
     }
 }

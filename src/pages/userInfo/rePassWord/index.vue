@@ -10,7 +10,6 @@
             label-width="80px"
             :model="formReUser">
             <el-form-item
-                prop='userName'
                 label="用户名">
                 <el-input
                     v-model="formReUser.userName"
@@ -19,24 +18,21 @@
                 </el-input>
             </el-form-item>
             <el-form-item
-                prop='phone'
                 label="手机号">
                 <el-input
                     v-model="formReUser.phone">
                 </el-input>
             </el-form-item>
             <el-form-item
-                prop='passWord'
                 label="旧密码">
                 <el-input
                     v-model="formReUser.passWord">
                 </el-input>
             </el-form-item>
             <el-form-item
-                prop='newPassWord'
                 label="新密码">
                 <el-input
-                    v-model="formReUser.newPassWord">
+                    v-model="formReUser.nickName">
                 </el-input>
             </el-form-item>
             <el-form-item>
@@ -58,7 +54,7 @@ export default {
                 userName: '',
                 phone: '',
                 passWord: '',
-                newPassWord: ''
+                nickName: ''
             }
         }
     },

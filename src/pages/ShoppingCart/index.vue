@@ -17,6 +17,7 @@
                     label='订单名'>
                 </el-table-column>
                 <el-table-column
+                    align='center'
                     prop='goods[0].goodName'
                     label='商品名称'>
                 </el-table-column>
