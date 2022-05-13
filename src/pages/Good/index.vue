@@ -20,7 +20,7 @@
                 <p>仓库内数量：{{storeNumber}}</p>
                 <div style='margin-top: 1rem;'>
                     <el-button type='primary' @click='beforeDeliverShopping'>立即购买</el-button>
-                    <el-button @click='addToCar(good.goodId)'>加入购物车</el-button>
+                    <el-button @click='addToCarBefore()'>加入购物车</el-button>
                 </div>
             </div>
         </div>
@@ -37,6 +37,18 @@
                 <el-button type="primary" @click="noCarry">否</el-button>
             </span>
         </el-dialog>
+        <el-dialog
+            title="加入购物车中的订单或新建订单"
+            :visible.sync="dialogVisibleOrderNames"
+            :close-on-click-modal='false'
+            :close-on-press-escape='false'
+            width="30%">
+            <div class='orderNames'>
+                <div class='orderNameOne' v-for='item in orderNames' :key='item' @click='addToCar(item)'>
+                    {{item}}
+                </div>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -51,7 +63,9 @@ export default {
     data() {
         return {
             dialogVisible: false,
+            dialogVisibleOrderNames: false,
             loading: false,
+            orderNames: [],
             good: {}
         }
     },
@@ -99,14 +113,28 @@ export default {
         }
     },
     methods: {
-        // todo goodId
-        addToCar() {
+        addToCarBefore() {
+            this.loading = true
             if (cookie.getCookie('token')) {
-                ApiOrder.queryOrderName().then(
-                    // todo
-                    /*
-                * res => {this.loading = true
-            ApiShoppingCart.addCar(goodId).then((res) => {
+                ApiOrder.queryOrderName({ userName: this.$store.state.user.userName }).then(res => {
+                    const newOrder = ['新增订单']
+                    this.orderNames = res.data
+                    this.orderNames = newOrder.concat(this.orderNames)
+                }).catch().finally(() => {
+                    this.loading = false
+                    this.dialogVisibleOrderNames = true
+                })
+            } else {
+                Message.warning('未登录，请先登录')
+                this.$router.push({ path: '/service/login' })
+            }
+        },
+        addToCar(orderName) {
+            if (orderName === '新增订单') {
+                orderName = undefined
+            }
+            this.loading = true
+            ApiShoppingCart.addCar(orderName, this.good.goodId).then((res) => {
                 this.showMsg(res)
             }).catch(() => {
                 this.$message({
@@ -115,13 +143,7 @@ export default {
                 })
             }).finally(() => {
                 this.loading = false
-            })}
-                * */
-                ).catch().finally()
-            } else {
-                Message.warning('未登录，请先登录')
-                this.$router.push({ path: '/service/login' })
-            }
+            })
         },
         isCarry() {
             this.dialogVisible = false
@@ -202,5 +224,19 @@ export default {
             flex-direction: column;
         }
     }
+}
+.orderNames{
+    display: flex;
+    flex-direction: column;
+    >div:not(:last-child){
+        margin-bottom: 1rem;
+    }
+}
+.orderNameOne{
+    width: 100%;
+    cursor:pointer;
+    background-color: #E4E7ED;
+    padding: 1rem;
+    box-sizing: border-box
 }
 </style>

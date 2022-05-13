@@ -2,8 +2,8 @@
 import request from '@/api/request'
 
 // 添加入订单（新建）
-function addCar(goodId) {
-    return request.get('/order/addCar', { params: { goodId }})
+function addCar(orderName, goodId) {
+    return request.get('/order/addCar', { params: { orderName, goodId }})
 }
 // 直接购买
 function deliver(params) {

@@ -4,8 +4,8 @@ function allOrder(orderStatus) {
     return request.get('/order/allOrder', { params: { orderStatus }})
 }
 
-function queryOrderName() {
-    return request.get('/order/queryOrderName')
+function queryOrderName(params) {
+    return request.post('/express/order/queryOrderName', params, { type: 'json' })
 }
 
 export default {
