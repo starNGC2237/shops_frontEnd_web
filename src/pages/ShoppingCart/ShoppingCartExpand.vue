@@ -10,9 +10,9 @@
                 align='center'
                 label='状态'>
                 <template slot-scope='scope'>
-                    <span v-if='scope.row.orderStatus === 1'>已提交订单</span>
-                    <span v-if='scope.row.orderStatus === 2'>已发订单</span>
-                    <span v-if='scope.row.orderStatus === 3'>已完成订单</span>
+                    <span v-if='scope.row.orderStatus === 1'>订单已提交</span>
+                    <span v-if='scope.row.orderStatus === 2'>订单已发</span>
+                    <span v-if='scope.row.orderStatus === 3'>订单已完成</span>
                 </template>
             </el-table-column>
             <el-table-column

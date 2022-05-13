@@ -6,6 +6,7 @@
             type='primacy'
             @click='dialogVisible = true'>新建地址</el-button>
         <el-table
+            v-loading='loading'
             border
             :data='tableData'>
             <el-table-column
@@ -41,6 +42,7 @@
                         :disabled='!!scope.row.isUsing'>
                         {{!!scope.row.isUsing?'已使用':'使用'}}
                     </el-button>
+                    <el-button type='text' @click='deleteAddress(scope.row.addressId)'>删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -103,6 +105,7 @@ export default {
         return {
             tableData: this.$store.state.user.addressList || [],
             dialogVisible: false,
+            loading: false,
             address: {
                 sheng: '',
                 shi: '',
@@ -117,6 +120,7 @@ export default {
     },
     methods: {
         getAreas() {
+            this.loading = true
             ApiAddress.getAllAreaMap().then(res => {
                 if (res.code === '200') {
                     this.areas = res.data
@@ -126,9 +130,17 @@ export default {
                         message: res.msg
                     })
                 }
+            }).catch(() => {
+                this.$message({
+                    type: 'error',
+                    message: '获取全国信息失败，网络错误！'
+                })
+            }).finally(() => {
+                this.loading = false
             })
         },
         useAddress(addressId) {
+            this.loading = true
             ApiAddress.useAddress(addressId).then(res => {
                 this.showMsg(res)
             }).catch(() => {
@@ -141,6 +153,7 @@ export default {
             })
         },
         commitAddAddress() {
+            this.loading = true
             const data = {
                 addressInfo: this.address.info,
                 provinceName: this.areas['0'].filter((item) => {
@@ -169,6 +182,7 @@ export default {
         async updateInfo() {
             await store.dispatch('getInfo')
             this.tableData = this.$store.state.user.addressList
+            this.loading = false
         },
         clearForm() {
             this.address = {
@@ -190,6 +204,19 @@ export default {
                     message: res.msg
                 })
             }
+        },
+        deleteAddress(addressId) {
+            this.loading = true
+            ApiAddress.deleteAddress(addressId).then(res => {
+                this.showMsg(res)
+            }).catch(() => {
+                this.$message({
+                    type: 'error',
+                    message: '删除地址失败，网络错误！'
+                })
+            }).finally(() => {
+                this.updateInfo()
+            })
         }
     }
 }

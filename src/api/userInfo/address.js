@@ -8,17 +8,22 @@ function getAllArea() {
 function getAllAreaMap() {
     return request.get('/express/area/all/map')
 }
-// 地址辅助接口(Map)
+// 新增地址
 function addAddress(params) {
     return request.post('/user/addAddress', params, { type: 'json' })
 }
-// 地址辅助接口(Map)
+// 使用地址
 function useAddress(addressId) {
     return request.get('/user/useAddress', { params: { addressId }})
+}
+// 使用地址
+function deleteAddress(addressId) {
+    return request.get('/user/deleteAddress', { params: { addressId }})
 }
 export default {
     getAllArea,
     getAllAreaMap,
     addAddress,
-    useAddress
+    useAddress,
+    deleteAddress
 }

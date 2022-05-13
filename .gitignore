@@ -3,6 +3,7 @@ node_modules
 /dist
 .eslintrc.js
 coverage
+/web-types
 
 # local env files
 .env.local

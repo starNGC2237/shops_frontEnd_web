@@ -60,7 +60,6 @@ export default {
         const data = {
             goodId: parseInt(this.$route.params.goodId, 10)
         }
-        // todo 获得单个商品信息
         ApiSearch.searchGood(data).then(res => {
             if (res.code === '200') {
                 this.good = res.data[0] || {}
@@ -100,12 +99,13 @@ export default {
         }
     },
     methods: {
-        // todo
-        addToCar(goodId) {
-            ApiOrder.queryOrderName().then(res => {
-                // todo
-                /*
-                * this.loading = true
+        // todo goodId
+        addToCar() {
+            if (cookie.getCookie('token')) {
+                ApiOrder.queryOrderName().then(
+                    // todo
+                    /*
+                * res => {this.loading = true
             ApiShoppingCart.addCar(goodId).then((res) => {
                 this.showMsg(res)
             }).catch(() => {
@@ -115,9 +115,13 @@ export default {
                 })
             }).finally(() => {
                 this.loading = false
-            })
+            })}
                 * */
-            }).catch().finally()
+                ).catch().finally()
+            } else {
+                Message.warning('未登录，请先登录')
+                this.$router.push({ path: '/service/login' })
+            }
         },
         isCarry() {
             this.dialogVisible = false
