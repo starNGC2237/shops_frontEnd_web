@@ -154,8 +154,8 @@ var socket = {
         }
         if (params.messageType === '发货信息') {
             Notification.success({
-                title: '发货信息：' + params.message.title,
-                message: params.message.content
+                title: '发货信息：',
+                message: params.message
             })
         }
         /*

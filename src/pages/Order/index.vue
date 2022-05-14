@@ -13,6 +13,13 @@
                     prop='orderName'
                     label='订单名'>
                 </el-table-column>
+                <el-table-column
+                    align='center'
+                    label='操作'>
+                    <template slot-scope='scope'>
+                        <el-button v-if='scope.row.orderStatus === 2' type='text' @click='receiveOrderName(scope.row.orderName)'>确认全部收货</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
         </div>
     </div>
@@ -67,6 +74,9 @@ export default {
             }).catch().finally(() => {
                 this.loading = false
             })
+        },
+        receiveOrderName(orderName) {
+            ApiOrder.receive(orderName)
         }
     }
 }

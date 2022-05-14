@@ -17,9 +17,14 @@ function allOrder(orderStatus) {
 function deleteCar(orderId) {
     return request.get('/order/deleteCar', { params: { orderId }})
 }
+// 订单购买
+function submitOrder(params) {
+    return request.post('/order/submitOrder', params, { type: 'json' })
+}
 export default {
     allOrder,
     addCar,
     deliver,
-    deleteCar
+    deleteCar,
+    submitOrder
 }

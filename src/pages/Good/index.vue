@@ -19,8 +19,8 @@
                 <p>商店内数量：{{shopNumber}}</p>
                 <p>仓库内数量：{{storeNumber}}</p>
                 <div style='margin-top: 1rem;'>
-                    <el-button type='primary' @click='beforeDeliverShopping'>立即购买</el-button>
-                    <el-button @click='addToCarBefore()'>加入购物车</el-button>
+                    <el-button type='primary' @click='beforeDeliverShopping' :disabled='storeNumber<=0 && shopNumber<=0'>立即购买</el-button>
+                    <el-button @click='addToCarBefore()' :disabled='storeNumber<=0 && shopNumber<=0'>加入购物车</el-button>
                 </div>
             </div>
         </div>
@@ -94,12 +94,13 @@ export default {
     },
     computed: {
         shopNumber() {
-            if (this.good.numberList?.length === 0) {
+            const a = this.good.numberList?.filter((item) => {
+                return item.role === '商家'
+            }) || []
+            if (a.length === 0) {
                 return 0
             } else {
-                return this.good.numberList?.filter((item) => {
-                    return item.role === '商家'
-                })[0].number || 0
+                return a[0].number || 0
             }
         },
         storeNumber() {
@@ -113,17 +114,38 @@ export default {
         }
     },
     methods: {
+        // 算法：找出数组中与地址最近的地址，并且number不为0,返回该后台用户
+        findUser(numberList, address) {
+            const threeSample = numberList.filter(item => item.address.provinceName + item.address.cityName + item.address.districtName === address.provinceName + address.cityName + address.districtName)
+            const twoSample = numberList.filter(item => item.address.provinceName + item.address.cityName === address.provinceName + address.cityName)
+            const oneSample = numberList.filter(item => item.address.provinceName === address.provinceName)
+            if (threeSample.length !== 0) {
+                return threeSample[0]
+            }
+            if (twoSample.length !== 0) {
+                return twoSample[0]
+            }
+            if (oneSample.length !== 0) {
+                return oneSample[0]
+            }
+            return numberList[0]
+        },
         addToCarBefore() {
             this.loading = true
             if (cookie.getCookie('token')) {
-                ApiOrder.queryOrderName({ userName: this.$store.state.user.userName }).then(res => {
-                    const newOrder = ['新增订单']
-                    this.orderNames = res.data
-                    this.orderNames = newOrder.concat(this.orderNames)
-                }).catch().finally(() => {
-                    this.loading = false
-                    this.dialogVisibleOrderNames = true
-                })
+                if (this.$store.state.user.addressList.filter(item => item.isUsing === 1).length === 0) {
+                    Message.warning('未填写地址，请先填写')
+                    this.$router.push({ path: '/userInfo/userAddress' })
+                } else {
+                    ApiOrder.queryOrderName({ userName: this.$store.state.user.userName }).then(res => {
+                        const newOrder = ['新增订单']
+                        this.orderNames = res.data
+                        this.orderNames = newOrder.concat(this.orderNames)
+                    }).catch().finally(() => {
+                        this.loading = false
+                        this.dialogVisibleOrderNames = true
+                    })
+                }
             } else {
                 Message.warning('未登录，请先登录')
                 this.$router.push({ path: '/service/login' })
@@ -143,6 +165,7 @@ export default {
                 })
             }).finally(() => {
                 this.loading = false
+                this.dialogVisibleOrderNames = false
             })
         },
         isCarry() {
@@ -151,36 +174,43 @@ export default {
         },
         noCarry() {
             this.dialogVisible = false
-            this.deliverShopping(this.good.goodId, 1, '6666', 0)
+            const toUser = this.findUser(this.good.numberList, this.$store.state.user.addressList.filter(item => item.isUsing === 1)[0])
+            this.deliverShopping(this.good.goodId, 1, toUser.userName, 0)
         },
         beforeDeliverShopping() {
             const isHave = this.good.numberList.some((item) => { return item.role === '商家' && item.number > 0 })
             if (isHave) {
                 this.dialogVisible = true
             } else {
-                this.deliverShopping(this.good.goodId, 1, this.good.numberList.filter((item) => { return item.role !== '商家' })[0].userName, 0)
+                const toUser = this.findUser(this.good.numberList, this.$store.state.user.addressList.filter(item => item.isUsing === 1)[0])
+                this.deliverShopping(this.good.goodId, 1, toUser.userName, 0)
             }
         },
         deliverShopping(goodId, number, toUser, isCarry, orderName) {
             if (cookie.getCookie('token')) {
-                this.loading = true
-                const data = {
-                    goodId: goodId,
-                    number: number,
-                    toUser: toUser,
-                    isCarry: isCarry,
-                    orderName: orderName
-                }
-                ApiShoppingCart.deliver(data).then((res) => {
-                    this.showMsg(res)
-                }).catch(() => {
-                    this.$message({
-                        type: 'error',
-                        message: '直接购买失败，网络错误！'
+                if (this.$store.state.user.addressList.filter(item => item.isUsing === 1).length === 0) {
+                    Message.warning('未填写地址，请先填写')
+                    this.$router.push({ path: '/userInfo/userAddress' })
+                } else {
+                    this.loading = true
+                    const data = {
+                        goodId: goodId,
+                        number: number,
+                        toUser: toUser,
+                        isCarry: isCarry,
+                        orderName: orderName
+                    }
+                    ApiShoppingCart.deliver(data).then((res) => {
+                        this.showMsg(res)
+                    }).catch(() => {
+                        this.$message({
+                            type: 'error',
+                            message: '直接购买失败，网络错误！'
+                        })
+                    }).finally(() => {
+                        this.loading = false
                     })
-                }).finally(() => {
-                    this.loading = false
-                })
+                }
             } else {
                 Message.warning('未登录，请先登录')
                 this.$router.push({ path: '/service/login' })
