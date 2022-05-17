@@ -2,7 +2,7 @@
     <div class='order'>
         <div class='order_container'>
             <el-page-header class='header' @back="goBack" content="我的订单"></el-page-header>
-            <el-table :data='orders' v-loading='loading'>
+            <el-table :data='orders' v-loading='loading' :default-expand-all='true'>
                 <el-table-column type="expand" width='100px'>
                     <template slot-scope="scope">
                         <ShoppingCartExpand :props='scope.row.goodList'></ShoppingCartExpand>
@@ -17,7 +17,7 @@
                     align='center'
                     label='操作'>
                     <template slot-scope='scope'>
-                        <el-button v-if='scope.row.orderStatus === 2' type='text' @click='receiveOrderName(scope.row.orderName)'>确认全部收货</el-button>
+                        <el-button v-if='scope.row.goodList.every(item=>item.orderStatus === 2)' type='text' @click='receiveOrderName(scope.row.orderName)'>确认全部收货</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -76,7 +76,9 @@ export default {
             })
         },
         receiveOrderName(orderName) {
-            ApiOrder.receive(orderName)
+            ApiOrder.receive(orderName).finally(() => {
+                this.getOrder()
+            })
         }
     }
 }

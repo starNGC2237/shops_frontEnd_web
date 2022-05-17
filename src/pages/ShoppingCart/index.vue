@@ -59,6 +59,7 @@
             <el-table
                 :data='orderNames'
                 v-loading='loading'
+                :default-expand-all='true'
                 @selection-change="handleSelectionChange">
                 <el-table-column
                     type="selection"
@@ -261,7 +262,7 @@ export default {
                                     goodId: itemChild.goods.goodId,
                                     number: 1,
                                     toUser: this.findUser(numberList, this.$store.state.user.addressList.filter(itemQ => itemQ.isUsing === 1)[0]).userName,
-                                    isCarry: 1
+                                    isCarry: 0
                                 }
                                 ApiShoppingCart.submitOrder(data)
                             }

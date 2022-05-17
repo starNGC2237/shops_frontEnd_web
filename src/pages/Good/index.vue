@@ -137,7 +137,7 @@ export default {
                     Message.warning('未填写地址，请先填写')
                     this.$router.push({ path: '/userInfo/userAddress' })
                 } else {
-                    ApiOrder.queryOrderName({ userName: this.$store.state.user.userName }).then(res => {
+                    ApiOrder.queryOrderName().then(res => {
                         const newOrder = ['新增订单']
                         this.orderNames = res.data
                         this.orderNames = newOrder.concat(this.orderNames)

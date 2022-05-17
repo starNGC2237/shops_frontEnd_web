@@ -59,12 +59,24 @@
             </el-form>
         </div>
         <div class='user_headPic'>
-            <el-image
-                style="width: 100px; height: 100px;box-shadow: 0 0.33rem 0.66rem 0 rgba(0, 0, 0, 0.2), 0 0.5rem 1.66rem 0 rgba(0, 0, 0, 0.19);;"
-                :src="formUser.imageUrl"
-                fit="fill">
-            </el-image>
-            <el-link>修改头像</el-link>
+            <el-upload
+                action=""
+                :http-request="()=>{}"
+                :on-change="handleChange"
+                :multiple="false"
+                :show-file-list="false"
+            >
+                <div class="upload-demo">
+                    <el-image
+                        v-if="!!formUser.imageUrl"
+                        style="width: 100px; height: 100px;box-shadow: 0 0.33rem 0.66rem 0 rgba(0, 0, 0, 0.2), 0 0.5rem 1.66rem 0 rgba(0, 0, 0, 0.19);;"
+                        :src="formUser.imageUrl"
+                        fit="fill">
+                    </el-image>
+                    <el-button type="text">{{ !!formUser.imageUrl?"修改图片":"添加图片" }}</el-button>
+                </div>
+
+            </el-upload>
         </div>
     </div>
 </template>
@@ -73,6 +85,8 @@
 import { mapState } from 'vuex'
 import ApiUserInfo from '@/api/userInfo/userInfo'
 import _ from 'lodash'
+import axios from 'axios'
+import Cookie from '../../../../utils/cookie'
 
 export default {
     name: 'user',
@@ -105,6 +119,32 @@ export default {
         Object.assign(this.formUser, _.cloneDeep(this.$store.state.user))
     },
     methods: {
+        // 将上传图片的原路径赋值给临时路径
+        handleChange(file) {
+            this.formUser.imageUrl = ''
+            // 下面函数执行的效果是一样的，只是需要针对不同的浏览器执行不同的 js 函数而已
+            if (window.createObjectURL !== undefined) { // basic
+                this.formUser.imageUrl = window.createObjectURL(file.raw)
+            } else if (window.URL !== undefined) { // mozilla(firefox)
+                this.formUser.imageUrl = window.URL.createObjectURL(file.raw)
+            } else if (window.webkitURL !== undefined) { // webkit or chrome
+                this.formUser.imageUrl = window.webkitURL.createObjectURL(file.raw)
+            }
+            const formData = new FormData()
+            formData.append('file', file.raw) // 文件列表
+            axios({
+                url: 'https://shops.starlibrary.online/api/user/reUserImage',
+                method: 'post',
+                data: formData,
+                headers: {
+                    'token': Cookie.getCookie('token')
+                },
+                processData: false, // 告诉axios不要去处理发送的数据(重要参数)
+                contentType: false // 告诉axios不要去设置Content-Type请求头
+            }).finally(() => {
+                this.$store.dispatch('getInfo')
+            })
+        },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -160,5 +200,10 @@ export default {
                 margin-bottom: 1rem;
             }
         }
+    }
+    .upload-demo{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 </style>

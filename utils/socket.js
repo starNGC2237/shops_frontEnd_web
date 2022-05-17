@@ -131,7 +131,6 @@ var socket = {
      * @param {*} message 接收到的消息
      */
     receive: (message) => {
-        // todo
         var params = JSON.parse(message.data)
         if (params.messageType === 'pong') {
             console.log('websocket：', params.message)
