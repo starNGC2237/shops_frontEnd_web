@@ -49,6 +49,8 @@ export default {
         },
         getOrder() {
             this.loading = true
+            this.orders = []
+            this.tableData = []
             const haveCommit = ApiOrder.allOrder(1)
             const haveAgree = ApiOrder.allOrder(2)
             const haveDone = ApiOrder.allOrder(3)
