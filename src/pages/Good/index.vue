@@ -178,12 +178,17 @@ export default {
             this.deliverShopping(this.good.goodId, 1, toUser.userName, 0)
         },
         beforeDeliverShopping() {
-            const isHave = this.good.numberList.some((item) => { return item.role === '商家' && item.number > 0 })
-            if (isHave) {
-                this.dialogVisible = true
+            if (cookie.getCookie('token')) {
+                const isHave = this.good.numberList.some((item) => { return item.role === '商家' && item.number > 0 })
+                if (isHave) {
+                    this.dialogVisible = true
+                } else {
+                    const toUser = this.findUser(this.good.numberList, this.$store.state.user.addressList.filter(item => item.isUsing === 1)[0])
+                    this.deliverShopping(this.good.goodId, 1, toUser.userName, 0)
+                }
             } else {
-                const toUser = this.findUser(this.good.numberList, this.$store.state.user.addressList.filter(item => item.isUsing === 1)[0])
-                this.deliverShopping(this.good.goodId, 1, toUser.userName, 0)
+                Message.warning('未登录，请先登录')
+                this.$router.push({ path: '/service/login' })
             }
         },
         deliverShopping(goodId, number, toUser, isCarry, orderName) {
