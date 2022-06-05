@@ -105,7 +105,7 @@
 
 <script>
 import ApiShoppingCart from '@/api/shoppingCart/shoppingCart'
-import ShoppingCartExpand from '@/pages/Order/ShoppingCartExpand'
+import ShoppingCartExpand from '@/pages/ShoppingCart/ShoppingCartExpand'
 export default {
     name: 'ShoppingCart',
     components: {

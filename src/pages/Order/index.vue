@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import ShoppingCartExpand from '@/pages/ShoppingCart/ShoppingCartExpand'
+import ShoppingCartExpand from '@/pages/Order/ShoppingCartExpand'
 import ApiOrder from '@/api/order/order'
 export default {
     name: 'Order',

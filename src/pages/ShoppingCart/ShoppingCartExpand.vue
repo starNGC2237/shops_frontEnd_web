@@ -35,8 +35,12 @@
             <el-table-column
                 width='200'
                 align='center'
-                prop='goods.number'
                 label='数量'>
+                <template slot-scope='scope'>
+                    <el-button>-</el-button>
+                    {{scope.row.goods.number}}
+                    <el-button>+</el-button>
+                </template>
             </el-table-column>
             <el-table-column
                 align='center'
