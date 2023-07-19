@@ -1,21 +1,46 @@
 <template>
     <el-carousel style='width: 1226px;height:460px;' direction="vertical" autoplay :interval="4000">
-        <el-carousel-item style='width: 1226px;height: 460px;' v-for='item in 4' :key='item'>
+        <el-carousel-item style='width: 1226px;height: 460px;' v-for='item in 4' :key='item' :name="item+''">
             <router-link to='/search/家电'>
-                <img src='https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/328715e54aafd28fd4001b9e50ddbd87.png?thumb=1&w=1839&h=690&f=webp&q=90' alt=''>
+                    <div class="img" v-show="!load" style="background-color: transparent;"></div>
+                    <el-image
+                        class="img"
+                        @load="handleImageLoad"
+                        @error="handleImageError"
+                        :src='img'
+                        v-show="load"
+                        alt='北京市节能减排补贴'
+                    />
             </router-link>
         </el-carousel-item>
     </el-carousel>
 </template>
 
 <script>
+
 export default {
-    name: 'SwiperWrapper'
+    name: 'SwiperWrapper',
+    data() {
+        return {
+            img: require('@/assets/1.webp'),
+            load: false
+        }
+    },
+    methods: {
+        handleImageLoad() {
+            console.log('图片加载成功')
+            this.load = true
+        },
+        handleImageError() {
+            console.log('图片加载失败')
+            this.load = false
+        }
+    }
 }
 </script>
 
 <style scoped lang='scss'>
-img{
+.img,img{
     width: 1226px;
     height: 460px;
     cursor: pointer;

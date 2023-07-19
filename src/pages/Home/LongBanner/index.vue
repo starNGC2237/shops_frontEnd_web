@@ -11,8 +11,8 @@
         <div class='container'>
             <router-link to='/search/K40'>
                 <img
-                    src='https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0e2b43800d3e1ef40470ac04b3e0140b.jpg'
-                    alt=''
+                    src='@/assets/K40.webp'
+                    alt='K40'
                 />
             </router-link>
         </div>

@@ -26,7 +26,7 @@
                     </li>
                     <li>
                         <a href='https://www.beian.gov.cn/portal/index.do'>
-                            <img src='@/assets/beian.png' alt='' />
+                            <img src='@/assets/beian.webp' alt='beian' width="20px" height="20px"/>
                             苏公网安备 32021402001231号
                         </a>
                     </li>

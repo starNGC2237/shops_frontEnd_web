@@ -2,7 +2,7 @@
     <div class='recommended-two'>
         <el-card @click.native='toGood(item)' shadow="hover" :body-style='{padding:"20px 0"}'>
             <div class='recommended-img'>
-                <img v-if='JSON.stringify(item) !== "{}"' :src='item.imageUrl' alt=''>
+                <img v-if='JSON.stringify(item) !== "{}"' :src='item.imageUrl+"?imageMogr2/format/webp"' alt=''>
             </div>
             <h3 class='title' v-if='JSON.stringify(item) !== "{}"'>
                 {{ item.goodName }}

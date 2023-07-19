@@ -4,7 +4,7 @@
             <div class='links'>
                 <div class='logo'>
                     <a href='https://shops.starlibrary.online'>
-                        <img src='../../assets/logo.png' alt='某商城'>
+                        <img src='../../assets/logo.webp' alt='某商城'>
                     </a>
                 </div>
                 <div class='all'>
@@ -12,27 +12,29 @@
                     <div v-show='show'  class='all-show' :style='autoHeight' @click="gotoSearch">
                         <ul>
                             <li v-for="(c1) in categoryList.slice(0,10)" :key="c1.categoryId">
-                                <a :data-categoryName="c1.categoryName"
+                                <span class="a" :data-categoryName="c1.categoryName"
                                    :data-category1id="c1.categoryId">
                                     <span :data-categoryName="c1.categoryName"
                                           :data-category1id="c1.categoryId">{{c1.categoryName}}</span>
                                     <i :data-categoryName="c1.categoryName"
                                        :data-category1id="c1.categoryId" class='el-icon-arrow-right'></i>
-                                </a>
+                                </span>
                                 <div class='c1-container'>
                                     <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                                         <dt class='fore-dt'>
-                                            <a
+                                            <span
+                                                class="a"
                                                 :data-categoryName="c2.categoryName"
                                                 :data-category2id="c2.categoryId"
-                                            >{{ c2.categoryName }}</a>
+                                            >{{ c2.categoryName }}</span>
                                         </dt>
                                         <dd>
                                             <em v-for="c3 in c2.categoryChild" :key="c3.categoryId" class='fore-em'>
-                                                <a
+                                                <span
+                                                    class="a"
                                                     :data-categoryName="c3.categoryName"
                                                     :data-category3id="c3.categoryId"
-                                                >{{ c3.categoryName }}</a>
+                                                >{{ c3.categoryName }}</span>
                                             </em>
                                         </dd>
                                     </dl>
@@ -42,33 +44,35 @@
                     </div>
                 </div>
                 <nav @click='gotoSearch'>
-                    <a v-for='c1 in categoryList.slice(10,categoryList.length)'
+                    <span class="a" v-for='c1 in categoryList.slice(10,categoryList.length)'
                        :key='c1.categoryId'>
                         <span style='cursor: pointer;' :data-categoryName="c1.categoryName" :data-category1id="c1.categoryId">{{ c1.categoryName }}</span>
                         <div class='all-show-remaining'>
                             <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                                 <dt class='fore-dt'>
-                                    <a
+                                    <span
+                                        class="a"
                                         :data-categoryName="c2.categoryName"
                                         :data-category2id="c2.categoryId"
-                                    >{{ c2.categoryName }}</a>
+                                    >{{ c2.categoryName }}</span>
                                 </dt>
                                 <dd>
                                     <em v-for="c3 in c2.categoryChild" :key="c3.categoryId" class='fore-em'>
-                                        <a
+                                        <span
+                                            class="a"
                                             :data-categoryName="c3.categoryName"
                                             :data-category3id="c3.categoryId"
-                                        >{{ c3.categoryName }}</a>
+                                        >{{ c3.categoryName }}</span>
                                     </em>
                                 </dd>
                             </dl>
                         </div>
-                    </a>
+                    </span>
                 </nav>
             </div>
             <div class='search'>
-                <el-input type='text' v-model='keyword' @keydown.enter.native='gotoSearch' size='large'>
-                    <el-button slot="append" icon="el-icon-search" @click='gotoSearch'></el-button>
+                <el-input type='text' v-model='keyword' @keydown.enter.native='gotoSearch' size='large' name="searchInput" id="searchInput" placeholder="请输入..." aria-label="请输入...">
+                    <el-button name="searchGood" slot="append" icon="el-icon-search" @click='gotoSearch' aria-label="搜索商品"></el-button>
                 </el-input>
             </div>
         </div>
@@ -168,7 +172,7 @@ export default {
     >nav{
         display: flex;
         align-items: center;
-        >a{
+        >.a{
             color: black;
             text-decoration:none;
             line-height: 100px;
@@ -254,7 +258,7 @@ export default {
                     display: block !important;
                 }
             }
-            >a{
+            >.a{
                 display: flex;
                 align-items: center;
                 height: 42px;
@@ -287,7 +291,7 @@ export default {
 .fore-dt{
     cursor: pointer;
     width: fit-content;
-    >a{
+    >.a{
         color: #409EFF;
     }
 }

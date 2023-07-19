@@ -6,7 +6,23 @@
  * @Description: file content
  * @FilePath: \shops_frontend_web\vue.config.js
  */
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
 module.exports = {
+    // 关闭sourceMap
+    productionSourceMap: process.env.NODE_ENV !== 'production',
+    configureWebpack: {
+        plugins: [
+        // gzip压缩
+            new CompressionWebpackPlugin({
+                filename: '[path][base].gz[query]',
+                algorithm: 'gzip',
+                test: new RegExp('\\.(' + ['js', 'css', 'woff'].join('|') + ')$'),
+                threshold: 10240,
+                minRatio: 0.8
+            })
+        ]
+    },
+
     devServer: {
         // true 则热更新，false 则手动刷新，默认值为 true
         // inline: true,
@@ -18,7 +34,7 @@ module.exports = {
             '/api/express': {
                 // 提供数据的服务器地址
                 changeOrigin: true,
-                target: 'http://101.35.79.150:9999',
+                target: 'http://47.122.9.25:9999',
                 // 会在后面加,除非,重写去掉
                 pathRewrite: { '^/api/express': '' }
 
@@ -26,7 +42,7 @@ module.exports = {
             '/api': {
                 // 提供数据的服务器地址
                 changeOrigin: true,
-                target: 'http://101.35.79.150:9090',
+                target: 'http://47.122.9.25:9090',
                 // 会在后面加/api,除非,重写去掉
                 pathRewrite: { '^/api': '' }
 

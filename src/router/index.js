@@ -15,23 +15,6 @@ import store from '../store'
 // 引入进度条
 import nprogress from 'nprogress'
 
-import Home from '@/pages/Home'
-import Search from '@/pages/Search'
-import Login from '@/pages/Service/Login'
-import Register from '@/pages/Service/Register'
-import NotFound from '@/components/NotFound'
-import Service from '@/pages/Service'
-import Forget from '@/pages/Service/Forget'
-import FeedBack from '@/pages/Service/FeedBack'
-import MessagePage from '@/pages/message'
-import UserInfo from '@/pages/userInfo'
-import User from '@/pages/userInfo/user'
-import UserAddress from '@/pages/userInfo/userAddress'
-import PhoneLogin from '@/pages/Service/phoneLogin'
-import ShoppingCart from '@/pages/ShoppingCart'
-import RePassWord from '@/pages/userInfo/rePassWord'
-import Good from '@/pages/Good'
-import Order from '@/pages/Order'
 // 使用插件
 Vue.use(VueRouter)
 
@@ -55,94 +38,94 @@ const router = new VueRouter({
         {
             name: 'home',
             path: '/home',
-            component: Home,
+            component: () => import(/* webpackChunkName: "Home" */'@/pages/Home'),
             meta: { show: true, needToken: false }
         },
         {
             name: 'search',
             path: '/search/:keyword?',
-            component: Search,
+            component: () => import(/* webpackChunkName: "Search" */'@/pages/Search'),
             meta: { show: true, needToken: false }
         },
         {
             name: 'good',
             path: '/good/:goodId?',
-            component: Good,
+            component: () => import(/* webpackChunkName: "Good" */'@/pages/Good'),
             meta: { show: true, needToken: false }
         },
         {
             name: 'order',
             path: '/order',
-            component: Order,
+            component: () => import(/* webpackChunkName: "Order" */'@/pages/Order'),
             meta: { show: true, needToken: true }
         },
         {
             path: '/service',
-            component: Service,
+            component: () => import(/* webpackChunkName: "Service" */'@/pages/Service'),
             meta: { show: false, needToken: false },
             children: [
                 {
                     path: 'login',
-                    component: Login,
+                    component: () => import(/* webpackChunkName: "ServiceLogin" */'@/pages/Service/Login'),
                     meta: { show: false, needToken: false }
                 },
                 {
                     path: 'phoneLogin',
-                    component: PhoneLogin,
+                    component: () => import(/* webpackChunkName: "ServicePhoneLogin" */'@/pages/Service/phoneLogin'),
                     meta: { show: false, needToken: false }
                 },
                 {
                     path: 'register',
-                    component: Register,
+                    component: () => import(/* webpackChunkName: "ServiceRegister" */'@/pages/Service/Register'),
                     meta: { show: false, needToken: false }
                 },
                 {
                     path: 'forget',
-                    component: Forget,
+                    component: () => import(/* webpackChunkName: "ServiceForget" */'@/pages/Service/Forget'),
                     meta: { show: false, needToken: false }
                 }
             ]
         },
         {
             path: '/userInfo',
-            component: UserInfo,
+            component: import(/* webpackChunkName: "userInfo" */'@/pages/userInfo'),
             meta: { show: true, needToken: true },
             children: [
                 {
                     path: 'user',
-                    component: User,
+                    component: import(/* webpackChunkName: "User" */'@/pages/userInfo/user'),
                     meta: { show: true, needToken: true }
                 },
                 {
                     path: 'rePassWord',
-                    component: RePassWord,
+                    component: import(/* webpackChunkName: "RePassWord" */'@/pages/userInfo/rePassWord'),
                     meta: { show: true, needToken: true }
                 },
                 {
                     path: 'userAddress',
-                    component: UserAddress,
+                    component: import(/* webpackChunkName: "UserAddress" */'@/pages/userInfo/userAddress'),
                     meta: { show: true, needToken: true }
                 }
             ]
         },
         {
             path: '/service/feedback',
-            component: FeedBack,
+            component: import(/* webpackChunkName: "FeedBack" */'@/pages/Service/FeedBack'),
             meta: { show: true, needToken: true }
         },
         {
             path: '/message',
-            component: MessagePage,
+            component: import(/* webpackChunkName: "Message" */'@/pages/message'),
             meta: { show: true, needToken: true }
         },
         {
             path: '/shoppingcart',
-            component: ShoppingCart,
+            component: import(/* webpackChunkName: "ShoppingCart" */'@/pages/ShoppingCart'),
             meta: { show: true, needToken: true }
         },
         {
             path: '/404',
-            component: NotFound,
+            component: import(/* webpackChunkName: "NotFound" */'@/components/NotFound'),
             meta: { show: false, needToken: false }
         },
         // 重定向
