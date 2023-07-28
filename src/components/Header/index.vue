@@ -18,7 +18,7 @@
             <div class='functions'>
                 <span><router-link to='/order'>我的订单</router-link></span>
                 <span class='welcome_split'>|</span>
-                <span><router-link to='/shoppingcart'>我的购物车</router-link></span>
+                <span><router-link to='/shopping-cart'>我的购物车</router-link></span>
                 <span class='welcome_split'>|</span>
                 <span><router-link to='/message'>我的通知</router-link></span>
                 <span class='welcome_split'>|</span>

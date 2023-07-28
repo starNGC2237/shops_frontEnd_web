@@ -57,7 +57,7 @@ const router = new VueRouter({
             name: 'order',
             path: '/order',
             component: () => import(/* webpackChunkName: "Order" */'@/pages/Order'),
-            meta: { show: true, needToken: true }
+            meta: { show: false, needToken: true }
         },
         {
             path: '/service',
@@ -88,44 +88,44 @@ const router = new VueRouter({
         },
         {
             path: '/userInfo',
-            component: import(/* webpackChunkName: "userInfo" */'@/pages/userInfo'),
+            component: () => import(/* webpackChunkName: "userInfo" */'@/pages/userInfo'),
             meta: { show: true, needToken: true },
             children: [
                 {
                     path: 'user',
-                    component: import(/* webpackChunkName: "User" */'@/pages/userInfo/user'),
+                    component: () => import(/* webpackChunkName: "User" */'@/pages/userInfo/user'),
                     meta: { show: true, needToken: true }
                 },
                 {
                     path: 'rePassWord',
-                    component: import(/* webpackChunkName: "RePassWord" */'@/pages/userInfo/rePassWord'),
+                    component: () => import(/* webpackChunkName: "RePassWord" */'@/pages/userInfo/rePassWord'),
                     meta: { show: true, needToken: true }
                 },
                 {
                     path: 'userAddress',
-                    component: import(/* webpackChunkName: "UserAddress" */'@/pages/userInfo/userAddress'),
+                    component: () => import(/* webpackChunkName: "UserAddress" */'@/pages/userInfo/userAddress'),
                     meta: { show: true, needToken: true }
                 }
             ]
         },
         {
             path: '/service/feedback',
-            component: import(/* webpackChunkName: "FeedBack" */'@/pages/Service/FeedBack'),
-            meta: { show: true, needToken: true }
+            component: () => import(/* webpackChunkName: "FeedBack" */'@/pages/Service/FeedBack'),
+            meta: { show: false, needToken: true }
         },
         {
             path: '/message',
-            component: import(/* webpackChunkName: "Message" */'@/pages/message'),
-            meta: { show: true, needToken: true }
+            component: () => import(/* webpackChunkName: "Message" */'@/pages/message/index.vue'),
+            meta: { show: false, needToken: true }
         },
         {
-            path: '/shoppingcart',
-            component: import(/* webpackChunkName: "ShoppingCart" */'@/pages/ShoppingCart'),
-            meta: { show: true, needToken: true }
+            path: '/shopping-cart',
+            component: () => import(/* webpackChunkName: "ShoppingCart" */'@/pages/ShoppingCart/index.vue'),
+            meta: { show: false, needToken: true }
         },
         {
             path: '/404',
-            component: import(/* webpackChunkName: "NotFound" */'@/components/NotFound'),
+            component: () => import(/* webpackChunkName: "NotFound" */'@/components/NotFound'),
             meta: { show: false, needToken: false }
         },
         // 重定向
