@@ -55,32 +55,35 @@
         >
             <el-form label-position="top">
                 <el-form-item label="请选择省">
-                    <el-select v-model='address.sheng'>
+                    <el-select v-model='address.sheng' @change='changeSheng'>
                         <el-option
                             v-for="item in areas['0']"
                             :key="item.area_id"
                             :label="item.name"
                             :value="item.area_id"
+
                         />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="请选择市">
-                    <el-select v-model='address.shi'>
+                    <el-select v-model='address.shi' @change='changeShi'>
                         <el-option
                             v-for="item in (areas[address.sheng] || [])"
                             :key="item.area_id"
                             :label="item.name"
                             :value="item.area_id"
+
                         />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="请选择区">
-                    <el-select v-model='address.qu' placeholder='请选择，若无可不填'>
+                    <el-select v-model='address.qu' placeholder='请选择，若无可不填' @change='changeQu'>
                         <el-option
                             v-for="item in (areas[address.shi] || [])"
                             :key="item.area_id"
                             :label="item.name"
                             :value="item.area_id"
+
                         />
                     </el-select>
                 </el-form-item>
@@ -119,6 +122,25 @@ export default {
         this.getAreas()
     },
     methods: {
+        changeSheng() {
+            console.log(this.address.sheng)
+            this.address = Object.assign({}, this.address, {
+                shi: '',
+                qu: '',
+                info: ''
+            })
+        },
+        changeShi() {
+            this.address = Object.assign({}, this.address, {
+                qu: '',
+                info: ''
+            })
+        },
+        changeQu() {
+            this.address = Object.assign({}, this.address, {
+                info: ''
+            })
+        },
         getAreas() {
             this.loading = true
             ApiAddress.getAllAreaMap().then(res => {
